@@ -1,0 +1,17 @@
+{
+    "name": "alicia/code-whiz-palace",
+    "description": "Application for Developer",
+    "type": "project",
+    "authors": [
+        {
+            "name": "ab"
+        }
+    ],
+    "require": {},
+    "autoload": {
+        "psr-4": {
+            "Framework\\": "src/Framework",
+            "App\\": "src/App"
+        }
+    }
+}
