@@ -90,10 +90,17 @@ class Route
         return false;
     }
 
-    public function dispatchRoute()
+    public function dispatchRoute($container, $middlewares)
     {
         [$class, $method] = $this->controller;
-        return (new $class)->{$method}();
+        $controllerInstance = $container ? $container->resolve($class) : new $class;
+        $action = fn () => $controllerInstance->{$method}();
+        foreach ($middlewares as $middleware) {
+            $middlewareInstance = $container ? $container->resolve($middleware) : new $middleware;
+            $action = fn () => $middlewareInstance->process($action);
+        }
+        $action();
+        return;
     }
 
     private function normalizePath(string $path): string

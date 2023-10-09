@@ -10,15 +10,15 @@ use App\Config\Paths;
 
 class PageController
 {
-    private TemplateEngine $view;
-    public function __construct()
+    public function __construct(private TemplateEngine $view)
     {
-        $this->view = new TemplateEngine(Paths::VIEW);
+        var_dump($this->view);
+        echo "<br>";
     }
 
     public function home()
     {
-        echo $this->view->render('index.php', ['title' => 'Home Page']);
+        echo $this->view->render('index.php');
     }
     public function about()
     {

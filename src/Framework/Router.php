@@ -9,6 +9,7 @@ use Framework\Route;
 class Router
 {
     private array $routes = [];
+    private array $middlewares = [];
     protected Route $current;
 
     public function addRoute(string $method, string $path, array $controller)
@@ -17,7 +18,12 @@ class Router
         return $route;
     }
 
-    public function dispatch()
+    public function addMiddleware(string $middleware)
+    {
+        $this->middlewares[] = $middleware;
+    }
+
+    public function dispatch(Container $container = null)
     {
         $paths = $this->paths();
         $requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
@@ -28,7 +34,7 @@ class Router
         if ($matching) {
             $this->current = $matching;
             try {
-                return $matching->dispatchRoute();
+                return $matching->dispatchRoute($container, $this->middlewares);
             } catch (\Throwable $e) {
                 return $this->dispatchError($e);
             }
