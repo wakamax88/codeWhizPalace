@@ -12,9 +12,9 @@ class Router
     private array $middlewares = [];
     protected Route $current;
 
-    public function addRoute(string $method, string $path, array $controller)
+    public function addRoute(string $method, string $path, array $controller, array $middleware)
     {
-        $route = $this->routes[] = new Route($method, $path, $controller);
+        $route = $this->routes[] = new Route($method, $path, $controller, $middleware);
         return $route;
     }
 
@@ -29,8 +29,6 @@ class Router
         $requestMethod = $_SERVER['REQUEST_METHOD'] ?? 'GET';
         $requestPath = $_SERVER['REQUEST_URI'] ?? '/';
         $matching = $this->match($requestMethod, $requestPath);
-        dd($paths);
-        dd($matching);
         if ($matching) {
             $this->current = $matching;
             try {

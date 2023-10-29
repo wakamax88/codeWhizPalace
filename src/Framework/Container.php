@@ -15,7 +15,6 @@ class Container
     public function addDefinitions(array $newDefinitions)
     {
         $this->definitions = [...$this->definitions, ...$newDefinitions];
-        dd($this->definitions);
     }
     public function resolve(string $className)
     {
@@ -49,11 +48,6 @@ class Container
             $dependencies[] = $this->get($type->getName());
         }
         return $reflectionClass->newInstanceArgs(($dependencies));
-
-        dd($reflectionClass);
-        dd($constructor);
-        dd($params);
-        dd($dependencies);
     }
     public function get(string $id)
     {
@@ -64,7 +58,7 @@ class Container
             return $this->resolved[$id];
         }
         $factory = $this->definitions[$id];
-        $dependency = $factory();
+        $dependency = $factory($this);
 
         $this->resolved[$id] = $dependency;
         return $dependency;

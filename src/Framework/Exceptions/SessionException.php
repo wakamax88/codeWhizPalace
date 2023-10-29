@@ -4,8 +4,8 @@ declare(strict_types=1);
 
 namespace Framework\Exceptions;
 
-use Exception;
+use RuntimeException;
 
-class ContainerException extends Exception
+class SessionException extends RuntimeException
 {
 }

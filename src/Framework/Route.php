@@ -10,12 +10,14 @@ class Route
     protected string $path;
     protected array $controller;
     protected array $parameters;
+    protected array $middleware;
 
-    public function __construct(string $method, string $path, array $controller)
+    public function __construct(string $method, string $path, array $controller, array $middleware)
     {
         $this->method = $method;
         $this->path = $this->normalizePath($path);
         $this->controller = $controller;
+        $this->middleware = $middleware;
     }
 
     public function parameters()
@@ -31,6 +33,11 @@ class Route
     public function path()
     {
         return $this->path;
+    }
+
+    public function middleware()
+    {
+        return $this->middleware;
     }
 
     public function matches(string $method, string $path)
@@ -84,7 +91,6 @@ class Route
             $parameterValues += $emptyValues;
 
             $this->parameters = array_combine($parameterNames, $parameterValues);
-            dd($this->parameters());
             return true;
         }
         return false;
@@ -95,7 +101,8 @@ class Route
         [$class, $method] = $this->controller;
         $controllerInstance = $container ? $container->resolve($class) : new $class;
         $action = fn () => $controllerInstance->{$method}();
-        foreach ($middlewares as $middleware) {
+        $allMiddleware = [...$this->middleware(), ...$middlewares];
+        foreach ($allMiddleware as $middleware) {
             $middlewareInstance = $container ? $container->resolve($middleware) : new $middleware;
             $action = fn () => $middlewareInstance->process($action);
         }

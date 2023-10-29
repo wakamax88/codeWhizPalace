@@ -22,18 +22,17 @@ class App
 
     public function run()
     {
-        echo 'Application is running';
         $this->router->dispatch($this->container);
     }
 
-    public function get(string $path, array $controller)
+    public function get(string $path, array $controller, array $middleware = [])
     {
-        $this->router->addRoute('GET', $path, $controller);
+        $this->router->addRoute('GET', $path, $controller, $middleware);
     }
 
-    public function post(string $path, array $controller)
+    public function post(string $path, array $controller, array $middleware = [])
     {
-        $this->router->addRoute('POST', $path, $controller);
+        $this->router->addRoute('POST', $path, $controller, $middleware);
     }
 
     public function addMiddleware(string $middleware)

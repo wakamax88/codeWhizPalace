@@ -7,14 +7,18 @@ namespace App\Middleware;
 use Framework\Contracts\MiddlewareInterface;
 use Framework\TemplateEngine;
 
-class TemplateDataMiddleware implements MiddlewareInterface
+class CsrfTokenMiddleware implements MiddlewareInterface
 {
     public function __construct(private TemplateEngine $view)
     {
     }
+
     public function process(callable $next)
     {
-        $this->view->addGlobal('title', 'Expense Tracking App');
+        $_SESSION['token'] = $_SESSION['token'] ?? bin2hex(random_bytes(32));
+
+        $this->view->addGlobal('csrfToken', $_SESSION['token']);
+
         $next();
     }
 }
