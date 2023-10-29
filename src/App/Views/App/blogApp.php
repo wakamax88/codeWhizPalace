@@ -6,7 +6,7 @@
             <div class="col">
                 <ul class="nav nav-tabs nav-justified" role="tablist">
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link active" data-bs-toggle="tab" aria-current="page" href="#tab-1">Active</a>
+                        <a class="nav-link active" data-bs-toggle="tab" aria-current="page" href="#tab-1">Blog</a>
                     </li>
                     <li class="nav-item" role="presentation">
                         <a class="nav-link" data-bs-toggle="tab" href="#tab-2">Link</a>
@@ -15,25 +15,42 @@
                         <a class="nav-link" data-bs-toggle="tab" href="#tab-3">Link</a>
                     </li>
                     <li class="nav-item" role="presentation">
-                        <a class="nav-link disabled" data-bs-toggle="tab" href="#tab-4" aria-disabled="true">Disabled</a>
+                        <a class="nav-link disabled" data-bs-toggle="tab" href="#tab-4" aria-disabled="true">Admin</a>
                     </li>
                 </ul>
             </div>
         </div>
-
+        <hr>
         <div class="row">
             <div class="tab-content">
                 <div id="tab-1" class="tab-pane fade active" role="tabpanel">
                     <p>Content for tab 1.</p>
                 </div>
                 <div id="tab-2" class="tab-pane fade" role="tabpanel">
-                    <p>Content for tab 2.</p>
+                    <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
+                        <?php foreach ($posts as $post) { ?>
+                            <?php include $this->resolve('partials/_postCard.php'); ?>
+                        <?php } ?>
+                    </div>
+                    <nav aria-label="Page navigation example">
+                        <ul class="pagination justify-content-center">
+                            <li class="page-item disabled">
+                                <a class="page-link">Previous</a>
+                            </li>
+                            <li class="page-item"><a class="page-link" href="#">1</a></li>
+                            <li class="page-item"><a class="page-link" href="#">2</a></li>
+                            <li class="page-item"><a class="page-link" href="#">3</a></li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </nav>
                 </div>
                 <div id="tab-3" class="tab-pane fade" role="tabpanel">
                     <p>Content for tab 3.</p>
                 </div>
                 <div id="tab-4" class="tab-pane fade" role="tabpanel">
-                    <p>Content for tab 4.</p>
+                    <p>Admin</p>
                 </div>
             </div>
         </div>

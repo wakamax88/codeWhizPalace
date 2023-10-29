@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Framework\{TemplateEngine, Database, Container};
 use App\Config\Paths;
-use App\Services\{ValidatorService, AccountService, ProfileService};
+use App\Services\{ValidatorService, AccountService, ProfileService, PostService};
 
 return [
     TemplateEngine::class => fn () => new TemplateEngine(Paths::VIEW),
@@ -17,5 +17,9 @@ return [
     ProfileService::class => function (Container $container) {
         $db = $container->get(Database::class);
         return new ProfileService($db);
+    },
+    PostService::class => function (Container $container) {
+        $db = $container->get(Database::class);
+        return new PostService($db);
     }
 ];

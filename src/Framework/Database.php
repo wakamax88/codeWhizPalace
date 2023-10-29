@@ -47,7 +47,7 @@ class Database
 
     public function findAll()
     {
-        return $this->stmt->fetch();
+        return $this->stmt->fetchAll();
     }
 
     public function id()
