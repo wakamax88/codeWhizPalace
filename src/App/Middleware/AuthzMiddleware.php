@@ -6,12 +6,12 @@ namespace App\Middleware;
 
 use Framework\Contracts\MiddlewareInterface;
 
-class AuthRequiredMiddleware implements MiddlewareInterface
+class AuthzMiddleware implements MiddlewareInterface
 {
     public function process(callable $next)
     {
-        if (empty($_SESSION['account'])) {
-            redirectTo('/signin');
+        if (!empty($_SESSION['account'])) {
+            redirectTo('/');
         }
 
         $next();

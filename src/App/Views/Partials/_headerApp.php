@@ -16,7 +16,7 @@
             <button class="navbar-toggler" data-bs-toggle="offcanvas" type="button" data-bs-target="#offcanvas-menu" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
-            <a class="navbar-brand" href="/app">CodeWhizPalace</a>
+            <a class="navbar-brand" href="/">CodeWhizPalace</a>
 
             <!-- Dropdown User  -->
             <a id="navbarDropdownMenuLink" class="d-flex align-items-center nav-link me-3" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

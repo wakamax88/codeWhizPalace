@@ -17,16 +17,24 @@ class ProfileController
     ) {
     }
 
-    public function profileView()
-    {
-        $profile = $this->profileService->read();
-        echo $this->view->render("/app/profileApp.php", ['profile' => $profile]);
-    }
-
     public function create()
     {
         $this->validatorService->validateProfile($_POST);
         $this->profileService->create($_POST);
         redirectTo('/app/profile');
+    }
+
+    public function read()
+    {
+        $profile = $this->profileService->read();
+        echo $this->view->render("/app/profileApp.php", ['profile' => $profile]);
+    }
+
+    public function update()
+    {
+    }
+
+    public function delete()
+    {
     }
 }

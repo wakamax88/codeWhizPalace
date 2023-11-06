@@ -1,13 +1,14 @@
-<?php include $this->resolve('partials/_header.php'); ?>
+<?php include $this->resolve('partials/_header_v2.php'); ?>
 <!-- Start Main Content Area -->
-<section class="container mx-auto mt-12 p-4 bg-white shadow-md border border-gray-200 rounded">
-    <!-- Page Title -->
-    <h3>About Page</h3>
-
-    <hr />
-
-    <!-- Escaping Data -->
-    <p>Escaping Data: </p>
+<section>
+    <div class="container">
+        <div class="row">
+            <!-- Page Title -->
+            <h3>About Page</h3>
+        </div>
+        <hr>
+        <div class="row"></div>
+    </div>
 </section>
 <!-- End Main Content Area -->
-<?php include $this->resolve('partials/_footer.php'); ?>
+<?php include $this->resolve('partials/_footer_v2.php'); ?>

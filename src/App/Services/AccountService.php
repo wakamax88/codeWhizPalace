@@ -25,7 +25,7 @@ class AccountService
         }
     }
 
-    public function create(array $formData)
+    public function signup(array $formData)
     {
         $password = password_hash($formData['password'], PASSWORD_BCRYPT, ['cost' => 12]);
         $this->db->query(
@@ -53,12 +53,24 @@ class AccountService
 
         session_regenerate_id();
 
-        $_SESSION['account'] = $account['id'];
+
+        $_SESSION['account'] = ['id' => $account['id'], 'password' => $account['password'], 'email' => $account['email']];
     }
 
     public function signout()
     {
         unset($_SESSION['account']);
         session_regenerate_id();
+        session_destroy();
+    }
+
+    /* test if the email still exists and if the password has not changed */
+    public function verify(array $sessionAccount): bool
+    {
+        $account = $this->db->query("SELECT * FROM accounts WHERE email = :email", ['email' => $sessionAccount['email']])->find();
+        $passwordMatch = $sessionAccount['password'] === $account['password'] ?? '';
+
+        // ToDo
+        return $passwordMatch;
     }
 }

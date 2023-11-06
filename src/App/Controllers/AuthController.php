@@ -15,28 +15,29 @@ class AuthController
 
     public function signupView()
     {
-        echo $this->view->render("signup_v2.php");
+        echo $this->view->render("signup_v2.php", ['subTitle' => 'Sign Up']);
     }
 
     public function signup()
     {
         $this->validatorService->validateSignup($_POST);
         $this->accountService->isEmailExist($_POST['email']);
-        $this->accountService->create($_POST);
+        $this->accountService->signup($_POST);
+        //ToDo
+        // $this->accountService->sendEmail()
+        // Send Email for validate account
         redirectTo('/app');
     }
 
     public function signinView()
     {
-        echo $this->view->render("signin_v2.php");
+        echo $this->view->render("signin_v2.php", ['subTitle' => 'Sign In']);
     }
 
     public function signin()
     {
         $this->validatorService->validateSignin($_POST);
-
         $this->accountService->signin($_POST);
-
         redirectTo('/app');
     }
 

@@ -1,6 +1,8 @@
 <?php include $this->resolve("partials/_header_v2.php"); ?>
-<section class="position-relative py-4 py-xl-5">
+<?php if (!empty($errors)) { ?>
     <?php var_dump($errors) ?>
+<?php } ?>
+<section class="position-relative py-4 py-xl-5">
     <div class="container">
         <div class="row mb-5">
             <div class="col-md-8 col-xl-6 text-center mx-auto">
@@ -13,7 +15,6 @@
                 <div class="card mb-5">
                     <div class="card-body d-flex flex-column align-items-center">
                         <form class="text-center" method="post">
-
                             <?php include $this->resolve('partials/_csrf.php'); ?>
 
                             <!-- Email -->

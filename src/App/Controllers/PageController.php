@@ -16,10 +16,16 @@ class PageController
 
     public function home()
     {
-        echo $this->view->render('index.php');
+        echo $this->view->render('index.php',  ['subTitle' => 'Home Page']);
     }
+
     public function about()
     {
-        echo $this->view->render('about.php', ['title' => 'About Page']);
+        echo $this->view->render('about.php', ['subTitle' => 'About Page']);
+    }
+
+    public function contact()
+    {
+        echo $this->view->render('contact.php', ['subTitle' => 'Contact Page']);
     }
 }

@@ -1,10 +1,16 @@
 <?php include $this->resolve('partials/_headerApp.php'); ?>
 <!-- Start Main Content Area -->
+<?php var_dump($alert) ?>
 <section>
     <div class="container">
-
         <div class="row"></div>
-
+        <div class="row">
+            <div class="col">
+                <?php if (!empty($alert)) { ?>
+                    <?php include $this->resolve('partials/_alert.php'); ?>
+                <?php } ?>
+            </div>
+        </div>
         <form class="row gutters-sm" method="post">
             <?php include $this->resolve('partials/_csrf.php'); ?>
             <div class="col-md-4 mb-3">

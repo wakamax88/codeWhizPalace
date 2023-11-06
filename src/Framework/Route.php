@@ -9,7 +9,7 @@ class Route
     protected string $method;
     protected string $path;
     protected array $controller;
-    protected array $parameters;
+    protected array $parameters = [];
     protected array $middleware;
 
     public function __construct(string $method, string $path, array $controller, array $middleware)
@@ -100,7 +100,7 @@ class Route
     {
         [$class, $method] = $this->controller;
         $controllerInstance = $container ? $container->resolve($class) : new $class;
-        $action = fn () => $controllerInstance->{$method}();
+        $action = fn () => $controllerInstance->{$method}($this->parameters());
         $allMiddleware = [...$this->middleware(), ...$middlewares];
         foreach ($allMiddleware as $middleware) {
             $middlewareInstance = $container ? $container->resolve($middleware) : new $middleware;

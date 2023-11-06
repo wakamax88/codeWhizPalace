@@ -1,5 +1,6 @@
 <?php include $this->resolve('partials/_headerApp.php'); ?>
 <!-- Start Main Content Area -->
+<?php var_dump($_SESSION) ?>
 <section>
     <div class="container-fluid">
         <div class="row">

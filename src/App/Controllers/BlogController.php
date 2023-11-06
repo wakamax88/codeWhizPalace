@@ -14,9 +14,10 @@ class BlogController
     {
     }
 
-    public function home()
+    public function home($parameters)
     {
-        dd($_GET);
+        //TEST
+        dd($parameters);
         $page = $_GET['p'] ?? 1;
         $posts = $this->postService->read();
         echo $this->view->render('/App/blogApp.php', ['posts' => $posts]);

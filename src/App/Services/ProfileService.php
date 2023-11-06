@@ -9,9 +9,11 @@ use Framework\Exceptions\ValidationException;
 
 class ProfileService
 {
+
     public function __construct(private Database $db)
     {
     }
+
     public function create(array $formData)
     {
         $formattedDate = "{$formData['birthday']} 00:00:00";
@@ -26,13 +28,22 @@ class ProfileService
             ]
         );
     }
+
     public function read()
     {
         $profile = $this->db->query(
             "SELECT *, DATE_FORMAT(birthday, '%Y-%m-%d') as formatted_date FROM profiles WHERE accounts_id = :accounts_id",
-            ['accounts_id' => $_SESSION['account']]
+            ['accounts_id' => $_SESSION['account']['id']]
         )->find();
 
         return $profile;
+    }
+
+    public function update()
+    {
+    }
+
+    public function delete()
+    {
     }
 }

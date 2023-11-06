@@ -21,6 +21,11 @@ class FlashMiddleware implements MiddlewareInterface
         $this->view->addGlobal('oldFormData', $_SESSION['oldFormData'] ?? []);
 
         unset($_SESSION['oldFormData']);
+
+        $this->view->addGlobal('alert', $_SESSION['alert'] ?? []);
+
+        unset($_SESSION['alert']);
+
         $next();
     }
 }
