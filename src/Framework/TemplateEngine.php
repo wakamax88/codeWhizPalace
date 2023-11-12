@@ -7,6 +7,7 @@ namespace Framework;
 class TemplateEngine
 {
     private array $globalTemplateData = [];
+
     public function __construct(private string $basePath)
     {
     }
@@ -26,6 +27,7 @@ class TemplateEngine
 
         return $output;
     }
+
     public function resolve(string $path)
     {
         return "{$this->basePath}/{$path}";

@@ -7,10 +7,14 @@
     <title>Document</title>
 
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/assets/css/<?= strtolower($subTitle) ?>.css">
 </head>
 
 <body>
+    <!-- Navbar -->
     <nav class="navbar bg-dark navbar-dark py-3">
         <div class="container-fluid">
             <button class="navbar-toggler" data-bs-toggle="offcanvas" type="button" data-bs-target="#offcanvas-menu" aria-controls="navbarsExample01" aria-expanded="false" aria-label="Toggle navigation">

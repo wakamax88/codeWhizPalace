@@ -1,5 +1,11 @@
 <?php include $this->resolve('partials/_headerApp.php'); ?>
 <!-- Start Main Content Area -->
+<?php
+if (isset($blog)) {
+    extract($blog);
+}
+var_dump($subTitle);
+?>
 <section>
     <div class="container-fluid">
         <div class="row">
@@ -23,12 +29,19 @@
         <hr>
         <div class="row">
             <div class="tab-content">
-                <div id="tab-1" class="tab-pane fade active" role="tabpanel">
+                <div id="tab-1" class="tab-pane active" role="tabpanel">
                     <p>Content for tab 1.</p>
+                    <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
+                        <?php foreach ($postsView as $post) { ?>
+                            <?php $tabTitle = "postsView" ?>
+                            <?php include $this->resolve('partials/_postCard.php'); ?>
+                        <?php } ?>
+                    </div>
                 </div>
                 <div id="tab-2" class="tab-pane fade" role="tabpanel">
                     <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
                         <?php foreach ($posts as $post) { ?>
+                            <?php $tabTitle = "posts" ?>
                             <?php include $this->resolve('partials/_postCard.php'); ?>
                         <?php } ?>
                     </div>
@@ -56,5 +69,10 @@
         </div>
 
     </div>
+    <?php include $this->resolve('partials/_modalReadApp.php'); ?>
+    <?php include $this->resolve('partials/_modalDeleteApp.php'); ?>
+    <?php include $this->resolve('partials/_modalEditApp.php'); ?>
 </section>
+
+
 <?php include $this->resolve('partials/_footerApp.php'); ?>

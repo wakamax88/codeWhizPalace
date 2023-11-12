@@ -18,12 +18,14 @@ class PostService
     {
     }
 
-    public function read()
+    public function home()
     {
         $posts = $this->db->query(
             "SELECT * FROM posts;"
         )->findAll();
-        return $posts;
+        $postsView = $this->db->query("SELECT * FROM `posts` ORDER BY `like` DESC LIMIT 3;")->findAll();
+        $blog = ['postsView' => $postsView, 'posts' => $posts];
+        return $blog;
     }
 
     public function update()
@@ -32,5 +34,11 @@ class PostService
 
     public function delete()
     {
+    }
+
+    public function read(int $id): array|false
+    {
+        $post = $this->db->query("SELECT * FROM `posts` WHERE `id` = :id;", ['id' => $id])->find();
+        return $post;
     }
 }

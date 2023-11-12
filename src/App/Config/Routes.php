@@ -21,5 +21,6 @@ function registerRoutes(App $app)
     $app->get('/app/profile', [ProfileController::class, 'read'], [AuthnMiddleware::class], [AuthzMiddleware::class]);
     $app->post('/app/profile', [ProfileController::class, 'create'], [AuthnMiddleware::class]);
     $app->get('/app', [HomeController::class, 'home']);
+    $app->get('/app/blog/posts/{id}', [BlogController::class, 'read']);
     $app->get('/app/blog/{p?}', [BlogController::class, 'home']);
 }

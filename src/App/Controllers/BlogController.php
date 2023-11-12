@@ -16,10 +16,19 @@ class BlogController
 
     public function home($parameters)
     {
-        //TEST
-        dd($parameters);
         $page = $_GET['p'] ?? 1;
-        $posts = $this->postService->read();
-        echo $this->view->render('/App/blogApp.php', ['posts' => $posts]);
+        $blog = $this->postService->home();
+        echo $this->view->render('/App/blogApp.php', ['subTitle' => 'Blog', 'blog' => $blog]);
+    }
+
+    public function read($parameters)
+    {
+        $post_id = (int) filter_var($parameters['id'], FILTER_SANITIZE_NUMBER_INT);
+        $post = $this->postService->read($post_id);
+        if ($post) {
+            header("Content-Type: application/json");
+            echo json_encode($post);
+            exit;
+        }
     }
 }
