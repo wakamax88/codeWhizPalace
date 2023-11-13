@@ -30,11 +30,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($tab['tabContent'] as $key => $content) { ?>
+                    <?php foreach ($tab['tabContent']['rows'] as $key => $row) { ?>
                         <tr>
-                            <td><?= $content['name'] ?? '' ?></td>
-                            <td><img class="rounded-circle me-2" width="30" height="30" src="/assets/img/category/<?= $content['thumbnail'] ?? 'avatar.jpg' ?>" /></td>
-                            <td class="text-truncate" style="max-width: 150px;"><?= $content['description'] ?? '' ?></td>
+                            <td><?= $row['name'] ?? '' ?></td>
+                            <td><img class="rounded-circle me-2" width="30" height="30" src="/assets/img/category/<?= $row['thumbnail'] ?? 'avatar.jpg' ?>" /></td>
+                            <td class="text-truncate" style="max-width: 150px;"><?= $row['description'] ?? '' ?></td>
                             <td><i class="fa-regular fa-pen-to-square"></i></td>
                             <td><i class="fa-regular fa-trash-can"></i></td>
                         </tr>
@@ -51,22 +51,27 @@
         </div>
         <div class="row">
             <div class="col-md-6 align-self-center">
-                <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">Showing 1 to 10 of 27</p>
+                <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">
+                    Showing <span><?= $tab['tabContent']['offset'] + 1 ?></span> to <span>10</span> of <span id="nbElement"><?= $tab['tabContent']['nbRow'] ?></span></p>
             </div>
             <div class="col-md-6">
                 <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
                     <ul class="pagination">
-                        <li class="page-item disabled">
-                            <a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a>
-                        </li>
-                        <li class="page-item active">
-                            <a class="page-link" href="#">1</a>
-                        </li>
-                        <li class="page-item">
-                            <a class="page-link" href="#">2</a>
-                        </li>
-                        <li class="page-item"><a class="page-link" href="#">3</a></li>
-                        <li class="page-item"><a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a></li>
+                        <?php for ($page = 0; $page <= $tab['tabContent']['nbPage'] + 1; $page++) { ?>
+                            <?php if ($page == 0) { ?>
+                                <li class="page-item <?= $tab['tabContent']['currentPage'] == 1 ? 'disabled' : '' ?>">
+                                    <a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a>
+                                </li>
+                            <?php } elseif ($page == $tab['tabContent']['nbPage'] + 1) { ?>
+                                <li class="page-item <?= $tab['tabContent']['currentPage'] == $tab['tabContent']['nbPage']  ? 'disabled' : '' ?>">
+                                    <a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a>
+                                </li>
+                            <?php } else { ?>
+                                <li class="page-item <?= $tab['tabContent']['currentPage'] == $page ? 'active' : '' ?>">
+                                    <a class="page-link <?= $tab['tabContent']['currentPage'] ?>" href="#"><?= $page ?></a>
+                                </li>
+                            <?php } ?>
+                        <?php } ?>
                     </ul>
                 </nav>
             </div>

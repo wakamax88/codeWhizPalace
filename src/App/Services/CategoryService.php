@@ -13,11 +13,24 @@ class CategoryService
     {
     }
 
-    public function home()
+    public function read(): array
     {
         $categories = $this->db->query(
             "SELECT * FROM categories;"
         )->findAll();
-        return $categories;
+        $categoriesNb = $this->db->query(
+            "SELECT COUNT(*) as categoriesNb FROM categories;"
+        )->count();
+
+        $categoriesNbPage = ceil($categoriesNb / 1);
+
+        return [
+            'rows' => $categories,
+            'nbRow' => $categoriesNb,
+            'limit' => 10,
+            'offset' => 0,
+            'currentPage' => 1,
+            'nbPage' => $categoriesNbPage
+        ];
     }
 }

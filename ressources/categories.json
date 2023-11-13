@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1,
+    "name": "Web Development",
+    "thumbnail": "category_webdev.jpg",
+    "description": "Le développement web est un domaine passionnant qui englobe la création et la maintenance de sites web. Il comprend des aspects tels que la conception web, le développement web côté client et côté serveur, l'optimisation pour les moteurs de recherche et l'expérience utilisateur. Les développeurs web utilisent une variété de langages de programmation et de technologies, y compris HTML, CSS, JavaScript, Python, Ruby, PHP, et bien d'autres, pour créer des sites web dynamiques et interactifs. Que vous soyez un blogueur, un propriétaire d'entreprise ou un développeur en herbe, le développement web est une compétence essentielle dans le monde numérique d'aujourd'hui."
+  },
+  {
+    "id": 2,
+    "name": "Technology",
+    "thumbnail": "category_tech.jpg",
+    "description": "La technologie est un domaine dynamique et en constante évolution qui façonne notre monde et influence presque tous les aspects de notre vie quotidienne. Elle englobe tout, des smartphones que nous utilisons pour communiquer, aux satellites qui nous permettent d'explorer l'espace, en passant par les logiciels qui alimentent nos ordinateurs et nos entreprises. La technologie est le moteur de l'innovation et de la découverte, ouvrant sans cesse de nouvelles possibilités et améliorant notre qualité de vie. Que ce soit dans les domaines de la santé, de l'éducation, de l'entreprise ou du divertissement, la technologie joue un rôle clé dans la façon dont nous interagissons avec le monde qui nous entoure."
+  },
+  {
+    "id": 3,
+    "name": "Data Science",
+    "thumbnail": "category_datascience.jpg",
+    "description": "La “Data Science” est un domaine interdisciplinaire passionnant qui utilise des méthodes scientifiques, des processus, des algorithmes et des systèmes pour extraire des connaissances et des idées de nombreuses données structurées et non structurées. Elle implique l'utilisation de statistiques, de l'apprentissage automatique, et de la programmation pour transformer les données en informations précieuses, aidant ainsi les entreprises à prendre des décisions éclairées. La Data Science est au cœur de nombreuses innovations technologiques d'aujourd'hui, de la recommandation de produits aux prévisions météorologiques."
+  }
+]

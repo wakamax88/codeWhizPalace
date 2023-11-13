@@ -38,7 +38,7 @@ class AccountService
         );
         session_regenerate_id();
 
-        $_SESSION['account'] = $this->db->id();
+        $_SESSION['account'] = ['id' => $this->db->id(), 'password' => $password, 'email' => $formData['email']];
     }
 
     public function signin(array $formData)

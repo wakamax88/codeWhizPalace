@@ -18,10 +18,10 @@ class ProfileService
     {
         $formattedDate = "{$formData['birthday']} 00:00:00";
         $this->db->query(
-            "INSERT INTO profiles(accounts_id, firstname, lastname, birthday)
-            VALUES(:accounts_id, :firstname, :lastname, :birthday)",
+            "INSERT INTO profiles(account_id, firstname, lastname, birthday)
+            VALUES(:account_id, :firstname, :lastname, :birthday)",
             [
-                'accounts_id' => $_SESSION['account'],
+                'account_id' => $_SESSION['account']['id'],
                 'firstname' => $formData['firstname'],
                 'lastname' => $formData['lastname'],
                 'birthday' => $formattedDate
@@ -32,8 +32,8 @@ class ProfileService
     public function read()
     {
         $profile = $this->db->query(
-            "SELECT *, DATE_FORMAT(birthday, '%Y-%m-%d') as formatted_date FROM profiles WHERE accounts_id = :accounts_id",
-            ['accounts_id' => $_SESSION['account']['id']]
+            "SELECT *, DATE_FORMAT(birthday, '%Y-%m-%d') as formatted_date FROM profiles WHERE account_id = :account_id",
+            ['account_id' => $_SESSION['account']['id']]
         )->find();
 
         return $profile;
