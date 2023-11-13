@@ -1,27 +1,29 @@
 <!-- Model Post Card Blog  -->
 <div class="col">
-    <div class="card" id="<?= $tabTitle ?>_<?= e($post['id'] ?? '') ?>">
-        <img class="card-img-top w-100 d-block fit-cover" style="height: 200px;" src="<?= '/assets/img/post/webdev/' . e($post['thumbnail']) ?>" />
+    <?= strtolower(str_replace(' ', '_', e($row['category'] ?? '')))  ?>
+    <div class="card" id="<?= strtolower($type) ?>_<?= e($row['id'] ?? '') ?>">
+        <img class="card-img-top w-100 d-block fit-cover" style="height: 200px;" src="/assets/img/post/webdev/<?= e($row['thumbnail']) ?>" />
         <div class="card-body p-4">
             <div class="d-flex">
                 <div>
                     <p class="text-primary card-text mb-0">Article</p>
-                    <h4 class="card-title"><?= e($post['title'] ?? '') ?></h4>
+                    <h4 class="card-title"><?= e($row['title'] ?? '') ?></h4>
                 </div>
                 <div class="ms-auto">
                     <p class="text-muted">Date</p>
                 </div>
             </div>
 
-            <p class="card-text"><?= e($post['exercpt'] ?? '') ?></p>
-            <div class="d-flex"><img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" />
+            <p class="card-text"><?= e($row['exercpt'] ?? '') ?></p>
+            <div class="d-flex">
+                <img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" />
                 <div>
                     <p class="fw-bold mb-0">John Smith</p>
                     <p class="text-muted mb-0">Erat netus</p>
                 </div>
                 <div class="ms-auto display-6">
                     <i class="fa-regular fa-thumbs-up like"></i>
-                    <span><?= e($post['like'] ?? '') ?></span>
+                    <span><?= e($row['like'] ?? '') ?></span>
                 </div>
             </div>
         </div>

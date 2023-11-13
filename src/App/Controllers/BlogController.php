@@ -6,6 +6,7 @@ namespace App\Controllers;
 
 use Framework\TemplateEngine;
 use App\Config\Paths;
+use App\Config\Tabs;
 use App\Services\PostService;
 
 class BlogController
@@ -17,8 +18,14 @@ class BlogController
     public function home($parameters)
     {
         $page = $_GET['p'] ?? 1;
-        $blog = $this->postService->home();
-        echo $this->view->render('/App/blogApp.php', ['subTitle' => 'Blog', 'blog' => $blog]);
+        $contents = $this->postService->home();
+        echo $this->view->render('/App/newsApp.php', [
+            'subTitle' => 'Blog',
+            'tabName' => 'News',
+            'sTabs' => Tabs::SECOND_TAB,
+            'contents' => $contents,
+            'type' => 'post'
+        ]);
     }
 
     public function read($parameters)
@@ -30,5 +37,16 @@ class BlogController
             echo json_encode($post);
             exit;
         }
+    }
+    public function lists($parameters)
+    {
+        $contents = $this->postService->readAll();
+        echo $this->view->render('/App/listsApp.php', [
+            'subTitle' => 'Blog',
+            'tabName' => 'Lists',
+            'sTabs' => Tabs::SECOND_TAB,
+            'contents' => $contents,
+            'type' => 'post'
+        ]);
     }
 }

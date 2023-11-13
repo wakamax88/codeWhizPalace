@@ -4,22 +4,8 @@
     <div class="container-fluid">
         <!-- Tab -->
         <div class="row">
-            <div class="col">
-                <ul class="nav nav-tabs nav-justified">
-                    <li class="nav-item">
-                        <a class="nav-link active" href="#tab-1">Blog</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#tab-2">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#tab-3">Link</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link disabled" href="#tab-4" aria-disabled="true">Admin</a>
-                    </li>
-                </ul>
-            </div>
+            <?php include $this->resolve('partials/_tabsApp.php'); ?>
+
         </div>
         <hr>
 

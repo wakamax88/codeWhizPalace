@@ -20,12 +20,19 @@ class PostService
 
     public function home()
     {
-        $posts = $this->db->query(
-            "SELECT * FROM posts;"
+        $news = $this->db->query(
+            "SELECT * 
+            FROM posts p;"
         )->findAll();
-        $postsView = $this->db->query("SELECT * FROM `posts` ORDER BY `like` DESC LIMIT 3;")->findAll();
-        $blog = ['postsView' => $postsView, 'posts' => $posts];
-        return $blog;
+
+        $bests = $this->db->query(
+            "SELECT * 
+            FROM `posts` 
+            ORDER BY `like` 
+            DESC LIMIT 3;"
+        )->findAll();
+
+        return ['news' => $news, 'bests' => $bests];
     }
 
     public function update()
@@ -38,7 +45,23 @@ class PostService
 
     public function read(int $id): array|false
     {
-        $post = $this->db->query("SELECT * FROM `posts` WHERE `id` = :id;", ['id' => $id])->find();
+        $post = $this->db->query(
+            "SELECT * 
+            FROM `posts` 
+            WHERE `id` = :id;",
+            ['id' => $id]
+        )->find();
+
         return $post;
+    }
+
+    public function readAll(): array|false
+    {
+        $contents = $this->db->query(
+            "SELECT *
+            FROM `posts`"
+        )->findAll();
+
+        return $contents;
     }
 }

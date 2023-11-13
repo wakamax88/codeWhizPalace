@@ -1,6 +1,5 @@
 <!-- Model Discussion Card Blog  -->
 <div class="col">
-    <?php var_dump($row) ?>
     <div class="card" id="<?= $tabTitle ?? '' ?>_<?= e($row['id'] ?? '') ?>">
         <div class="card-header d-flex">
             <div>
@@ -14,6 +13,7 @@
         <div class="card-body p-4">
             <div class="card">
                 <div class="card-header d-flex">
+                    <img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="25" height="25" src="/assets/img/profile/<?= e($row['commentProfileImage'] ?? 'profile_default.png') ?>" />
                     <div>
                         <p class="fw-bold mb-0">John Smith</p>
                     </div>
@@ -23,20 +23,22 @@
                 </div>
                 <div class="card-body">
                     <div>
-                        <p class="card-text"><?= e($row['lastComment'] ?? '') ?></p>
+                        <p class="card-text"><?= e($row['commentContent'] ?? '') ?></p>
                     </div>
                 </div>
             </div>
 
         </div>
+
         <div class="card-footer d-flex">
+            <img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50" src="/assets/img/profile/<?= e($row['profileImage'] ?? 'profile_default.png') ?>" />
             <div>
-                <p class="fw-bold mb-0"><?= e($row['discussionProfileName'] ?? '') ?></p>
+                <p class="fw-bold mb-0"><?= e($row['profilePseudo'] ?? '') ?></p>
                 <p class="text-muted mb-0">Erat netus</p>
             </div>
 
-            <div class="ms-auto display-6">
-                <span><?= e($row['nbComment'] ?? '') ?></span>
+            <div class="ms-auto">
+                <span class="me-2"><?= e($row['commentNb'] ?? '') ?></span>
                 <i class="fa-regular fa-comment"></i>
             </div>
         </div>

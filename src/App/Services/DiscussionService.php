@@ -15,7 +15,7 @@ class DiscussionService
     public function home()
     {
         $news = $this->db->query(
-            "SELECT d.id, d.title, p.firstname AS discussionProfileName, p.id, c.name AS category, MAX(cm.content) AS lastComment, COUNT(cm.id) AS nbComment
+            "SELECT d.id, d.title, p.firstname AS profilePseudo, p.id, c.name AS category, MAX(cm.content) AS commentContent, COUNT(cm.id) AS commentNb
             FROM discussions d
             JOIN comments cm ON d.id = cm.discussion_id
             JOIN profiles p ON d.profile_id = p.id
@@ -37,5 +37,15 @@ class DiscussionService
         )->findAll();
 
         return ['news' => $news, 'bests' => $bests];
+    }
+
+    public function readAll(): array|false
+    {
+        $contents = $this->db->query(
+            "SELECT *
+            FROM `discussions`"
+        )->findAll();
+
+        return $contents;
     }
 }
