@@ -7,7 +7,7 @@ namespace App\Config;
 use App\Controllers\AuthController;
 use App\Middleware\{AuthnMiddleware, AuthzMiddleware};
 use Framework\App;
-use App\Controllers\{PageController, ProfileController, HomeController, BlogController};
+use App\Controllers\{PageController, ProfileController, HomeController, BlogController, ForumController};
 
 function registerRoutes(App $app)
 {
@@ -23,4 +23,5 @@ function registerRoutes(App $app)
     $app->get('/app', [HomeController::class, 'home']);
     $app->get('/app/blog/posts/{id}', [BlogController::class, 'read']);
     $app->get('/app/blog/{p?}', [BlogController::class, 'home']);
+    $app->get('/app/forum', [ForumController::class, 'home']);
 }
