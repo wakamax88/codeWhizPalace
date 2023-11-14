@@ -40,6 +40,16 @@ class App
         $this->router->addRoute('DELETE', $path, $controller, $middleware);
     }
 
+    public function patch(string $path, array $controller, array $middleware = [])
+    {
+        $this->router->addRoute('PATCH', $path, $controller, $middleware);
+    }
+
+    public function put(string $path, array $controller, array $middleware = [])
+    {
+        $this->router->addRoute('PUT', $path, $controller, $middleware);
+    }
+
     public function addMiddleware(string $middleware)
     {
         $this->router->addMiddleware($middleware);

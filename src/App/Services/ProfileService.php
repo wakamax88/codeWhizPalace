@@ -27,6 +27,7 @@ class ProfileService
                 'birthday' => $formattedDate
             ]
         );
+        $_SESSION['profile'] = ['id' => $this->db->id()];
     }
 
     public function read()

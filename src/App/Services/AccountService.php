@@ -43,7 +43,18 @@ class AccountService
 
     public function signin(array $formData)
     {
-        $account = $this->db->query("SELECT * FROM accounts WHERE email = :email", ['email' => $formData['email']])->find();
+        $account = $this->db->query(
+            "SELECT 
+            accounts.id,
+            accounts.password,
+            accounts.email,
+            p.id AS profileId,
+            p.firstname AS profilePseudo 
+            FROM accounts
+            LEFT JOIN profiles p ON p.account_id = accounts.id 
+            WHERE email = :email",
+            ['email' => $formData['email']]
+        )->find();
 
         $passwordMatch = password_verify($formData['password'], $account['password'] ?? '');
 
@@ -55,6 +66,7 @@ class AccountService
 
 
         $_SESSION['account'] = ['id' => $account['id'], 'password' => $account['password'], 'email' => $account['email']];
+        $_SESSION['profile'] = ['id' => $account['profileId'], 'pseudo' => $account['profilePseudo']];
     }
 
     public function signout()

@@ -33,4 +33,12 @@ class CategoryService
             'nbPage' => $categoriesNbPage
         ];
     }
+    public function readAll()
+    {
+        $contents = $this->db->query(
+            "SELECT *
+            FROM categories;"
+        )->findAll();
+        return $contents;
+    }
 }

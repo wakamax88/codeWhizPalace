@@ -34,6 +34,11 @@
             <?php } ?>
         </div>
     </div>
+    <?php if ($type == 'post') { ?>
+        <?php include $this->resolve('partials/_modalReadApp.php'); ?>
+        <?php include $this->resolve('partials/_modalDeleteApp.php'); ?>
+        <?php include $this->resolve('partials/_modalEditApp.php'); ?>
+    <?php } ?>
 </section>
 
 

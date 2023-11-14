@@ -5,13 +5,13 @@ declare(strict_types=1);
 namespace App\Controllers;
 
 use Framework\TemplateEngine;
-use App\Config\Paths;
 use App\Config\Tabs;
 use App\Services\PostService;
+use App\Services\ValidatorService;
 
 class BlogController
 {
-    public function __construct(private TemplateEngine $view, private PostService $postService)
+    public function __construct(private TemplateEngine $view, private ValidatorService $validatorService, private PostService $postService)
     {
     }
 
@@ -48,5 +48,20 @@ class BlogController
             'contents' => $contents,
             'type' => 'post'
         ]);
+    }
+    public function update($parameters)
+    {
+        $post_id = (int) filter_var($parameters['id'], FILTER_SANITIZE_NUMBER_INT);
+    }
+    public function create()
+    {
+        $this->validatorService->validatePost($_POST);
+        $this->validatorService->validatorFile($_FILES['thumbnail']);
+        if (true) {
+            $response = ['message' => 'the message', 'success' => false];
+            header("Content-Type: application/json");
+            echo json_encode($response);
+            exit;
+        }
     }
 }

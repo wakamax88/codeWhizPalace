@@ -6,7 +6,7 @@ namespace App\Config;
 
 class Tabs
 {
-    public const FIRST_TAB = [];
+    public const MAIN_TAB = ['Home', 'Blog', 'Forum', 'Course', 'Tutorials', 'Game'];
     public const SECOND_TAB = ['News', 'Lists'];
-    public const ADMIN_TAB = [];
+    public const ADMIN_TAB = [''];
 }

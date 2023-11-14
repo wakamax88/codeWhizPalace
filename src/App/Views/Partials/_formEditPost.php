@@ -16,7 +16,7 @@
     <!-- Thumbnail -->
     <div class="text-start mb-3">
         <label class="form-label text-light">Thumbnail</label>
-        <input class="form-control" type="file" name="thumbnail" accept="image/png, image/jpeg">
+        <input id="thumbnail" class="form-control" type="file" name="thumbnail" accept="image/png, image/jpeg">
 
         <div class="text-muted">
 

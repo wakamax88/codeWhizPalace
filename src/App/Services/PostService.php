@@ -57,11 +57,33 @@ class PostService
 
     public function readAll(): array|false
     {
+        $profile_id = $_SESSION['profile']['id'];
         $contents = $this->db->query(
-            "SELECT *
-            FROM `posts`"
+            "SELECT 
+            p.firstname AS profilePseudo,
+            c.name AS categoryName, 
+            p.id AS profileId, 
+            posts.id AS postId,
+            posts.title,
+            posts.thumbnail,
+            posts.id,
+            CONCAT(SUBSTRING(posts.exercpt, 1, 255), '...') AS exercpt,
+            COUNT(v.id) AS voteNb,
+            CASE WHEN EXISTS (SELECT 1 FROM votes WHERE post_id = posts.id AND profile_id = :profile_id) THEN 1 ELSE 0 END AS hasVoted
+            FROM posts
+            JOIN profiles p ON posts.profile_id = p.id
+            JOIN categories c ON posts.category_id = c.id
+            LEFT JOIN votes v ON posts.id = v.post_id
+            GROUP BY 
+            p.firstname,
+            c.name, 
+            p.id,
+            posts.id,
+            posts.title,
+            posts.thumbnail,
+            posts.exercpt;",
+            ['profile_id' => $profile_id]
         )->findAll();
-
         return $contents;
     }
 }

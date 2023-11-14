@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title><?= "{$title} - App - {$subTitle}" ?></title>
 
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
@@ -14,6 +14,7 @@
 </head>
 
 <body>
+    <?php var_dump($_SESSION['profile']) ?>
     <!-- Navbar -->
     <nav class="navbar bg-dark navbar-dark py-3">
         <div class="container-fluid">
@@ -29,6 +30,10 @@
                 <img class="rounded-circle" alt="avatar" width="32" height="32" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" style="object-fit: cover;" />
             </a>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdownMenuLink">
+                <li>
+                    <span class="dropdown-item disabled"><?= $_SESSION['profile']['pseudo'] != null ? 'Welcome ' . $_SESSION['profile']['pseudo'] : 'Welcome User' ?></span>
+                </li>
+                <hr class="dropdown-divider">
                 <li><a class="dropdown-item" href="/app/profile">My profile</a></li>
                 <li><a class="dropdown-item" href="#">Settings</a></li>
                 <li>
@@ -52,13 +57,11 @@
             <div>
                 <hr class="mt-0">
                 <ul class="nav nav-pills flex-column mb-auto">
-                    <li class="nav-item"><a class="nav-link active link-light" href="/app" aria-current="page"><i class="fa-solid fa-house me-3"></i> Home </a></li>
-                    <li class="nav-item"><a class="nav-link link-body-emphasis" href="/app/blog"><i class="fa-regular fa-newspaper me-3"></i> Blog </a></li>
-                    <li class="nav-item"><a class="nav-link link-body-emphasis" href="/app/forum"><i class="fa-regular fa-pen-to-square me-3"></i> Forum </a></li>
-                    <li class="nav-item"><a class="nav-link link-body-emphasis" href="/app/course"><i class="fa-solid fa-graduation-cap me-3"></i> Course </a></li>
-                    <li class="nav-item"><a class="nav-link link-body-emphasis" href="/app/tutorial"><i class="fa-solid fa-book me-3"></i> Tutorials </a></li>
-                    <li class="nav-item"><a class="nav-link link-body-emphasis" href="/app/game"><i class="fa-solid fa-gamepad me-3"></i> Game </a></li>
-
+                    <?php foreach ($mTabs as $key => $mTab) { ?>
+                        <li class="nav-item">
+                            <a class="nav-link <?= $subTitle == $mTab ? 'active link-light' : 'link-body-emphasis' ?>" href="/app/<?= strtolower($mTab) ?>"><i class="fa-solid fa-house me-3"></i> <?= $mTab ?> </a>
+                        </li>
+                    <?php } ?>
                 </ul>
             </div>
         </div>
