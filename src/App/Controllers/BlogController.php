@@ -4,14 +4,16 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Config\Paths;
 use Framework\TemplateEngine;
 use App\Config\Tabs;
+use App\Services\CategoryService;
 use App\Services\PostService;
 use App\Services\ValidatorService;
 
 class BlogController
 {
-    public function __construct(private TemplateEngine $view, private ValidatorService $validatorService, private PostService $postService)
+    public function __construct(private TemplateEngine $view, private ValidatorService $validatorService, private PostService $postService, private CategoryService $categoryService)
     {
     }
 
@@ -38,6 +40,7 @@ class BlogController
             exit;
         }
     }
+
     public function lists()
     {
         $show = abs((int) filter_var($_GET['show'] ?? 3, FILTER_SANITIZE_NUMBER_INT));
@@ -62,16 +65,58 @@ class BlogController
             'limit' => $limit
         ]);
     }
+
     public function update($parameters)
     {
+        //$this->validatorService->validatePost($_POST);
+
         $post_id = (int) filter_var($parameters['id'], FILTER_SANITIZE_NUMBER_INT);
+        $this->postService->update($_POST, $post_id);
+        if (true) {
+            $response = ['message' => "Update Post", 'success' => true];
+            header("Content-Type: application/json");
+            echo json_encode($response);
+            exit;
+        }
     }
     public function create()
     {
         $this->validatorService->validatePost($_POST);
-        $this->validatorService->validatorFile($_FILES['thumbnail']);
+        $imageNameNew = '';
+        if (isset($_FILES['thumbnail'])) {
+            $this->validatorService->validatorFile($_FILES['thumbnail']);
+            $image = $_FILES['thumbnail'];
+            $imageName = $image['name'];
+            $imageExt = pathinfo($imageName, PATHINFO_EXTENSION);
+            $imageTmpName = $image['tmp_name'];
+            $categoryName = $this->categoryService->readOne((int) $_POST['categoryId'])['name'];
+            $categoryName = capitalizeFirstLetter($categoryName);
+            $imageId = uniqid('', true);
+            $imageNameNew = "post_{$categoryName}_{$imageId}.{$imageExt}";
+            $uploadDirectory = Paths::IMAGE . 'post/' . $categoryName . '/';
+            if (!file_exists($uploadDirectory)) {
+                mkdir($uploadDirectory, 0777, true);
+            }
+            $imageDestination = $uploadDirectory . $imageNameNew;
+            move_uploaded_file($imageTmpName, $imageDestination);
+        }
+
+
+        $this->postService->create($_POST, $imageNameNew);
         if (true) {
-            $response = ['message' => 'the message', 'success' => false];
+            $response = ['message' => "Create Post", 'success' => true];
+            header("Content-Type: application/json");
+            echo json_encode($response);
+            exit;
+        }
+    }
+
+    public function delete($parameters)
+    {
+        $post_id = (int) filter_var($parameters['id'], FILTER_SANITIZE_NUMBER_INT);
+        $id = $this->postService->delete($post_id);
+        if (true) {
+            $response = ['message' => "Delete Post", 'success' => true];
             header("Content-Type: application/json");
             echo json_encode($response);
             exit;

@@ -25,8 +25,8 @@ function registerRoutes(App $app)
     $app->get('/app/home', [HomeController::class, 'home']);
     // BLOG
     $app->get('/app/blog/posts/{id}', [BlogController::class, 'read']);
-    $app->patch('/app/blog/posts/{id}', [BlogController::class, 'update']);
-    $app->delete('/app/blog/posts/{id}', [BlogController::class, 'delete']);
+    $app->patch('/app/blog/posts/update/{id}', [BlogController::class, 'update']);
+    $app->delete('/app/blog/posts/delete/{id}', [BlogController::class, 'delete']);
     $app->post('/app/blog/posts', [BlogController::class, 'create']);
     $app->get('/app/blog', [BlogController::class, 'home']);
     $app->get('/app/blog/news', [BlogController::class, 'home']);

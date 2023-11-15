@@ -21,3 +21,10 @@ function redirectTo(string $path)
     http_response_code(302);
     exit;
 }
+function capitalizeFirstLetter($inputString)
+{
+    $words = explode(' ', $inputString);
+    $capitalizedWords = array_map('ucfirst', $words);
+    $result = implode('', $capitalizedWords);
+    return lcfirst($result);
+}

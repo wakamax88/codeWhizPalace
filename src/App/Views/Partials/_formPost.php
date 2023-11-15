@@ -1,18 +1,21 @@
-<form class="text-center" method="post">
+<form class="text-center">
     <?php include $this->resolve('partials/_csrf.php'); ?>
-    <input type="hidden" name="contenu_wysiwyg" id="contenu_wysiwyg" />
+    <input type="hidden" name="content" id="content" />
 
     <!-- Title -->
     <div class="text-start mb-3">
         <label class="form-label text-light">Title</label>
-        <input value="<?= e($oldFormData['title'] ?? '') ?>" class="form-control" type="text" name="title" id="title">
+        <input class="form-control" type="text" name="title" id="title">
 
         <div class="text-muted">
 
         </div>
 
     </div>
-
+    <div>
+        <select class="form-select" aria-label="Default select example" id="category">
+        </select>
+    </div>
     <!-- Thumbnail -->
     <div class="text-start mb-3">
         <label class="form-label text-light">Thumbnail</label>
@@ -27,7 +30,7 @@
     <!-- Alt -->
     <div class="text-start mb-3">
         <label class="form-label text-light">Alt</label>
-        <input class="form-control" type="text" name="alt">
+        <input class="form-control" type="text" name="alt" id="alt">
 
         <div class="text-muted">
 
@@ -47,7 +50,7 @@
     </div>
     <!-- Content -->
     <div class="text-start mb-3">
-        <div id="content">
+        <div id="contentVisual">
 
         </div>
 
@@ -56,7 +59,4 @@
         </div>
 
     </div>
-
-
-    <div class="mb-3"><button class="btn btn-primary d-block w-100" type="submit">S'inscrire</button></div>
 </form>

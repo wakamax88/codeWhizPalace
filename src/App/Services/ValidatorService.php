@@ -5,7 +5,7 @@ declare(strict_types=1);
 namespace App\Services;
 
 use Framework\Validator;
-use Framework\Rules\{RequiredRule, EmailRule, MinRule, InRule, UrlRule, MatchRule, LengthMaxRule, NumericRule, DateFormatRule, ExtensionRule};
+use Framework\Rules\{RequiredRule, EmailRule, MinRule, InRule, UrlRule, MatchRule, LengthMaxRule, NumericRule, DateFormatRule, ExtensionRule, SizeRule};
 
 class ValidatorService
 {
@@ -24,6 +24,7 @@ class ValidatorService
         $this->validator->add('numeric', new NumericRule());
         $this->validator->add('dateFormat', new DateFormatRule());
         $this->validator->add('extension', new ExtensionRule());
+        $this->validator->add('size', new SizeRule());
     }
 
     public function validateSignup(array $formData)
@@ -62,13 +63,15 @@ class ValidatorService
             'title' => ['required'],
             'alt' => ['required'],
             'excerpt' => ['required'],
-            'content' => ['required']
+            'content' => ['required'],
+            'alt' => ['required']
         ]);
     }
     public function validatorFile(array $files)
     {
         $this->validator->validate($files, [
-            'name' => ['extension:jpeg,png,jpg']
+            'name' => ['extension:jpeg,png,jpg'],
+            //'size' => ['size:1000000']
         ]);
     }
 }

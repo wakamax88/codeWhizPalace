@@ -1,8 +1,8 @@
 <!-- Model Post Card Blog  -->
 <div class="col">
-    <?= strtolower(str_replace(' ', '_', e($row['category'] ?? '')))  ?>
+
     <div class="card shadow" id="<?= strtolower($type) ?>_<?= e($row['id'] ?? '') ?>">
-        <img class="card-img-top w-100 d-block fit-cover" style="height: 200px;" src="/assets/img/post/webdev/<?= e($row['thumbnail']) ?>" />
+        <img class="card-img-top w-100 d-block fit-cover" style="height: 200px;" src="/assets/img/post/<?= capitalizeFirstLetter(e($row['categoryName'] ?? ''))  ?>/<?= e($row['thumbnail']) ?>" />
         <div class="card-body p-4">
             <div class="d-flex">
                 <div>
@@ -14,7 +14,7 @@
                 </div>
             </div>
 
-            <p class="card-text"><?= e($row['exercpt'] ?? '') ?></p>
+            <p class="card-text"><?= e($row['excerpt'] ?? '') ?></p>
             <div class="d-flex">
                 <img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" />
                 <div>

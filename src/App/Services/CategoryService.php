@@ -41,4 +41,16 @@ class CategoryService
         )->findAll();
         return $contents;
     }
+    public function readOne(int $id)
+    {
+        $contents = $this->db->query(
+            "SELECT * 
+            FROM categories
+            WHERE categories.id = :id;",
+            [
+                'id' => $id
+            ]
+        )->find();
+        return $contents;
+    }
 }

@@ -14,8 +14,22 @@ class PostService
     {
     }
 
-    public function create(array $formData)
+    public function create(array $formData, string $imageName)
     {
+        $profile_id = $_SESSION['profile']['id'];
+        $this->db->query(
+            "INSERT INTO posts(title, content, excerpt, profile_id, category_id, thumbnail)
+            VALUES(:title, :content, :excerpt, :profile_id, :category_id, :thumbnail)",
+            [
+                'title' => $formData['title'],
+                'content' => $formData['content'],
+                'excerpt' => $formData['excerpt'],
+                'profile_id' => $profile_id,
+                'category_id' => $formData['categoryId'],
+                'thumbnail' => $imageName
+            ]
+        );
+        return $this->db->id();
     }
 
     public function home()
@@ -31,7 +45,7 @@ class PostService
             posts.thumbnail,
             posts.id,
             posts.createdAt AS date,
-            CONCAT(SUBSTRING(posts.exercpt, 1, 255), '...') AS exercpt,
+            CONCAT(SUBSTRING(posts.excerpt, 1, 255), '...') AS excerpt,
             COUNT(v.id) AS voteNb,
             CASE WHEN EXISTS (SELECT 1 FROM votes WHERE post_id = posts.id AND profile_id = :profile_id) THEN 1 ELSE 0 END AS hasVoted
             FROM posts
@@ -45,7 +59,7 @@ class PostService
             posts.id,
             posts.title,
             posts.thumbnail,
-            posts.exercpt
+            posts.excerpt
             ORDER BY createdAt 
             DESC LIMIT 3;",
             ['profile_id' => $profile_id]
@@ -61,7 +75,7 @@ class PostService
             posts.thumbnail,
             posts.id,
             posts.createdAt AS date,
-            CONCAT(SUBSTRING(posts.exercpt, 1, 255), '...') AS exercpt,
+            CONCAT(SUBSTRING(posts.excerpt, 1, 255), '...') AS excerpt,
             COUNT(v.id) AS voteNb,
             CASE WHEN EXISTS (SELECT 1 FROM votes WHERE post_id = posts.id AND profile_id = :profile_id) THEN 1 ELSE 0 END AS hasVoted
             FROM posts
@@ -75,7 +89,7 @@ class PostService
             posts.id,
             posts.title,
             posts.thumbnail,
-            posts.exercpt
+            posts.excerpt
             ORDER BY voteNb 
             DESC LIMIT 3;",
             ['profile_id' => $profile_id]
@@ -84,12 +98,35 @@ class PostService
         return ['news' => $news, 'bests' => $bests];
     }
 
-    public function update()
+    public function update(array $formData, int $id)
     {
+        $this->db->query(
+            "UPDATE posts
+            SET title = :title,
+            content = :content,
+            alt = :alt,
+            excerpt = :excerpt,
+            category_id = :category_id
+            WHERE posts.id = :id;",
+            [
+                'title' => $formData['title'],
+                'content' => $formData['content'],
+                'excerpt' => $formData['excerpt'],
+                'category_id' => $formData['categoryId'],
+                'alt' => $formData['alt'],
+                'id' => $id
+            ]
+        );
     }
 
-    public function delete()
+    public function delete(int $id)
     {
+        $this->db->query(
+            "DELETE FROM posts WHERE posts.id = :id",
+            [
+                'id' => $id
+            ]
+        );
     }
 
     public function read(int $id): array|false
@@ -118,7 +155,7 @@ class PostService
             posts.thumbnail,
             posts.id,
             posts.createdAt AS date,
-            CONCAT(SUBSTRING(posts.exercpt, 1, 255), '...') AS exercpt,
+            CONCAT(SUBSTRING(posts.excerpt, 1, 255), '...') AS excerpt,
             COUNT(v.id) AS voteNb,
             CASE WHEN EXISTS (SELECT 1 FROM votes WHERE post_id = posts.id AND profile_id = :profile_id) THEN 1 ELSE 0 END AS hasVoted
             FROM posts
@@ -132,7 +169,7 @@ class PostService
             posts.id,
             posts.title,
             posts.thumbnail,
-            posts.exercpt
+            posts.excerpt
             LIMIT {$limit} OFFSET {$offset};",
             ['profile_id' => $profile_id]
         )->findAll();
