@@ -14,7 +14,6 @@
 </head>
 
 <body>
-    <?php var_dump($_SESSION['profile']) ?>
     <!-- Navbar -->
     <nav class="navbar bg-dark navbar-dark py-3">
         <div class="container-fluid">

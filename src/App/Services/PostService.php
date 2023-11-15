@@ -20,16 +20,65 @@ class PostService
 
     public function home()
     {
+        $profile_id = $_SESSION['profile']['id'];
         $news = $this->db->query(
-            "SELECT * 
-            FROM posts p;"
+            "SELECT 
+            p.firstname AS profilePseudo,
+            c.name AS categoryName, 
+            p.id AS profileId, 
+            posts.id AS postId,
+            posts.title,
+            posts.thumbnail,
+            posts.id,
+            posts.createdAt AS date,
+            CONCAT(SUBSTRING(posts.exercpt, 1, 255), '...') AS exercpt,
+            COUNT(v.id) AS voteNb,
+            CASE WHEN EXISTS (SELECT 1 FROM votes WHERE post_id = posts.id AND profile_id = :profile_id) THEN 1 ELSE 0 END AS hasVoted
+            FROM posts
+            JOIN profiles p ON posts.profile_id = p.id
+            JOIN categories c ON posts.category_id = c.id
+            LEFT JOIN votes v ON posts.id = v.post_id
+            GROUP BY 
+            p.firstname,
+            c.name, 
+            p.id,
+            posts.id,
+            posts.title,
+            posts.thumbnail,
+            posts.exercpt
+            ORDER BY createdAt 
+            DESC LIMIT 3;",
+            ['profile_id' => $profile_id]
         )->findAll();
 
         $bests = $this->db->query(
-            "SELECT * 
-            FROM `posts` 
-            ORDER BY `like` 
-            DESC LIMIT 3;"
+            "SELECT 
+            p.firstname AS profilePseudo,
+            c.name AS categoryName, 
+            p.id AS profileId, 
+            posts.id AS postId,
+            posts.title,
+            posts.thumbnail,
+            posts.id,
+            posts.createdAt AS date,
+            CONCAT(SUBSTRING(posts.exercpt, 1, 255), '...') AS exercpt,
+            COUNT(v.id) AS voteNb,
+            CASE WHEN EXISTS (SELECT 1 FROM votes WHERE post_id = posts.id AND profile_id = :profile_id) THEN 1 ELSE 0 END AS hasVoted
+            FROM posts
+            JOIN profiles p ON posts.profile_id = p.id
+            JOIN categories c ON posts.category_id = c.id
+            LEFT JOIN votes v ON posts.id = v.post_id
+            GROUP BY 
+            p.firstname,
+            c.name, 
+            p.id,
+            posts.id,
+            posts.title,
+            posts.thumbnail,
+            posts.exercpt
+            ORDER BY voteNb 
+            DESC LIMIT 3;",
+            ['profile_id' => $profile_id]
         )->findAll();
 
         return ['news' => $news, 'bests' => $bests];
@@ -55,8 +104,9 @@ class PostService
         return $post;
     }
 
-    public function readAll(): array|false
+    public function readAll(int $page, int $limit, int $offset): array|false
     {
+
         $profile_id = $_SESSION['profile']['id'];
         $contents = $this->db->query(
             "SELECT 
@@ -67,6 +117,7 @@ class PostService
             posts.title,
             posts.thumbnail,
             posts.id,
+            posts.createdAt AS date,
             CONCAT(SUBSTRING(posts.exercpt, 1, 255), '...') AS exercpt,
             COUNT(v.id) AS voteNb,
             CASE WHEN EXISTS (SELECT 1 FROM votes WHERE post_id = posts.id AND profile_id = :profile_id) THEN 1 ELSE 0 END AS hasVoted
@@ -81,9 +132,16 @@ class PostService
             posts.id,
             posts.title,
             posts.thumbnail,
-            posts.exercpt;",
+            posts.exercpt
+            LIMIT {$limit} OFFSET {$offset};",
             ['profile_id' => $profile_id]
         )->findAll();
         return $contents;
+    }
+
+    public function count()
+    {
+        $numberRow = $this->db->query("SELECT COUNT(*) FROM posts")->count();
+        return $numberRow;
     }
 }

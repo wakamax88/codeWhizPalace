@@ -13,6 +13,8 @@ let modalEditEl = document.getElementById("modal-edit");
 let modalCreateEl = document.getElementById("modal-create");
 let addBtn = document.getElementById("add");
 let saveBtn = document.getElementById("save");
+let pageLinks = document.querySelectorAll(".page");
+let showEl = document.getElementById("show");
 
 // init editor text
 var options = {
@@ -187,6 +189,17 @@ const alertBox = (message, type) => {
   document.querySelector('.col').appendChild(alertDiv);
 }
 
+const setLink = (event) => {
+  pageLinks.forEach(pageLink => {
+    let show = showEl.value;
+    let pathname = pageLink.pathname;
+    let page = pageLink.search;
+    let query = `${page}&show=${show}`
+    let url = `${pathname}${query}`;
+    pageLink.setAttribute('href', url);
+  });
+  console.log(pageLinks)
+}
 
 // Event Listener
 cards.forEach((card) => {
@@ -216,3 +229,9 @@ likeBtns.forEach((likeBtn) => {
 addBtn.addEventListener('click', openCreateModal);
 
 saveBtn.addEventListener("click", createPost);
+
+// pageLinks.forEach(pageLink => {
+//   pageLink.addEventListener("click", getPage);
+// });
+
+showEl.addEventListener("change", setLink)

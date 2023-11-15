@@ -38,15 +38,28 @@ class BlogController
             exit;
         }
     }
-    public function lists($parameters)
+    public function lists()
     {
-        $contents = $this->postService->readAll();
+        $show = abs((int) filter_var($_GET['show'] ?? 3, FILTER_SANITIZE_NUMBER_INT));
+        $limit = in_array($show, [3, 6, 9]) ? $show : 3;
+        $page = abs((int) filter_var($_GET['page'] ?? 1, FILTER_SANITIZE_NUMBER_INT));
+        $numberRow = $this->postService->count();
+        $pageMax = (int) ceil($numberRow / $limit);
+        $page = $page > $pageMax ? $pageMax : $page;
+        $page = $page < 1 ? 1 : $page;
+        $offset = ($page - 1) * $limit;
+        $contents = $this->postService->readAll($page, $limit, $offset);
         echo $this->view->render('/App/listsApp.php', [
             'subTitle' => 'Blog',
             'tabName' => 'Lists',
             'sTabs' => Tabs::SECOND_TAB,
             'contents' => $contents,
-            'type' => 'post'
+            'type' => 'post',
+            'pageActive' => $page,
+            'pageMax' => $pageMax,
+            'offset' => $offset,
+            'numberRow' => $numberRow,
+            'limit' => $limit
         ]);
     }
     public function update($parameters)

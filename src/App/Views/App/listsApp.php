@@ -12,11 +12,10 @@
         <div class="row justify-content-between py-3">
             <div class="col-auto text-nowrap">
                 <label class="form-label">Show
-                    <select class="d-inline-block form-select form-select-sm">
-                        <option value="10" selected>10</option>
-                        <option value="25">25</option>
-                        <option value="50">50</option>
-                        <option value="100">100</option>
+                    <select id="show" class="d-inline-block form-select form-select-sm">
+                        <option value="3" <?= $limit == 3 ? 'selected' : '' ?> selected>3</option>
+                        <option value="6" <?= $limit == 6 ? 'selected' : '' ?>>6</option>
+                        <option value="9" <?= $limit == 9 ? 'selected' : '' ?>>9</option>
                     </select>
                 </label>
             </div>
@@ -37,19 +36,33 @@
             <?php } ?>
         </div>
         <!-- Footer -->
-        <nav class="py-3">
-            <ul class="pagination justify-content-center">
-                <li class="page-item disabled">
-                    <a class="page-link">Previous</a>
-                </li>
-                <li class="page-item"><a class="page-link" href="#">1</a></li>
-                <li class="page-item"><a class="page-link" href="#">2</a></li>
-                <li class="page-item"><a class="page-link" href="#">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#">Next</a>
-                </li>
-            </ul>
-        </nav>
+        <div class="p-3 row justify-content-between align-items-center">
+            <div class="col-auto">
+                <p>
+                    Showing <span><?= $offset + 1 ?></span> to <span><?= $limit * $pageActive ?></span> of <span><?= $numberRow ?></span></p>
+            </div>
+            <div class="col-auto">
+                <nav class="d-flex ">
+                    <ul class="pagination">
+                        <?php for ($page = 0; $page <= $pageMax + 1; $page++) { ?>
+                            <?php if ($page == 0) { ?>
+                                <li class="page-item <?= $pageActive == 1 ? 'disabled' : '' ?>">
+                                    <a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a>
+                                </li>
+                            <?php } elseif ($page == $pageMax + 1) { ?>
+                                <li class="page-item <?= $pageActive == $pageMax  ? 'disabled' : '' ?>">
+                                    <a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a>
+                                </li>
+                            <?php } else { ?>
+                                <li class="page-item <?= $pageActive == $page ? 'active' : '' ?>">
+                                    <a class="page page-link" href="/app/blog/lists/?page=<?= $page ?>"><?= $page ?></a>
+                                </li>
+                            <?php } ?>
+                        <?php } ?>
+                    </ul>
+                </nav>
+            </div>
+        </div>
     </div>
     <?php include $this->resolve('partials/_modalCreateApp.php'); ?>
     <?php include $this->resolve('partials/_modalReadApp.php'); ?>

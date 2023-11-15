@@ -30,7 +30,7 @@ function registerRoutes(App $app)
     $app->post('/app/blog/posts', [BlogController::class, 'create']);
     $app->get('/app/blog', [BlogController::class, 'home']);
     $app->get('/app/blog/news', [BlogController::class, 'home']);
-    $app->get('/app/blog/lists', [BlogController::class, 'lists']);
+    $app->get('/app/blog/lists/{?}', [BlogController::class, 'lists']);
     // FORUM
     $app->get('/app/forum', [ForumController::class, 'home']);
     $app->get('/app/forum/news', [ForumController::class, 'home']);
