@@ -8,4 +8,5 @@ class TableHeaders
 {
     public const CATEGORIES = ['Name', 'Image', 'Description', 'Edit', 'Delete'];
     public const TAGS = [];
+    public const USERS = ['Id', 'Email', 'Firstname', 'Lastname', 'Role'];
 }

@@ -7,7 +7,7 @@ namespace App\Config;
 use App\Controllers\AuthController;
 use App\Middleware\{AuthnMiddleware, AuthzMiddleware};
 use Framework\App;
-use App\Controllers\{AdminController, PageController, ProfileController, HomeController, BlogController, ForumController};
+use App\Controllers\{AdminController, PageController, ProfileController, HomeController, BlogController, CommonController, ForumController};
 
 function registerRoutes(App $app)
 {
@@ -36,5 +36,10 @@ function registerRoutes(App $app)
     $app->get('/app/forum/news', [ForumController::class, 'home']);
     $app->get('/app/forum/lists', [ForumController::class, 'lists']);
     // ADMIN
-    $app->get('/app/admin/categories', [AdminController::class, 'readAll']);
+    $app->get('/app/admin', [AdminController::class, 'home']);
+    $app->get('/app/admin/home', [AdminController::class, 'home']);
+    $app->get('/app/admin/categories', [AdminController::class, 'readCategories']);
+    $app->get('/app/admin/users', [AdminController::class, 'readUsers']);
+    //COMMON
+    $app->get('/app/common/categories', [CommonController::class, 'getAllCategories']);
 }

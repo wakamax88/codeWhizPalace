@@ -1,8 +1,8 @@
 <div class="col">
     <ul class="nav nav-pills nav-justified">
-        <?php foreach ($sTabs as $key => $sTab) { ?>
+        <?php foreach ($tabs as $key => $tab) { ?>
             <li class="nav-item">
-                <a class="nav-link <?= $sTab == $tabName ? 'active' : '' ?>" href="/app/<?= strtolower($subTitle) ?>/<?= strtolower($sTab) ?>"><?= "{$subTitle} {$sTab}" ?></a>
+                <a class="nav-link <?= $tab == $tabName ? 'active' : '' ?>" href="/app/<?= strtolower($subTitle) ?>/<?= strtolower($tab) ?>"><?= "{$subTitle} {$tab}" ?></a>
             </li>
         <?php } ?>
     </ul>

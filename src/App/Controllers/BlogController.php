@@ -24,7 +24,7 @@ class BlogController
         echo $this->view->render('/App/newsApp.php', [
             'subTitle' => 'Blog',
             'tabName' => 'News',
-            'sTabs' => Tabs::SECOND_TAB,
+            'tabs' => Tabs::SECOND_TAB,
             'contents' => $contents,
             'type' => 'post'
         ]);
@@ -55,7 +55,7 @@ class BlogController
         echo $this->view->render('/App/listsApp.php', [
             'subTitle' => 'Blog',
             'tabName' => 'Lists',
-            'sTabs' => Tabs::SECOND_TAB,
+            'tabs' => Tabs::SECOND_TAB,
             'contents' => $contents,
             'type' => 'post',
             'pageActive' => $page,

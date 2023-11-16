@@ -61,7 +61,7 @@ const getPostById = async (post_id) => {
 
 const getCategories = async () => {
   try {
-    let response = await fetch(`/app/admin/categories`)
+    let response = await fetch(`/app/common/categories`)
     let categories = await response.json();
     return categories;
   } catch(error) {

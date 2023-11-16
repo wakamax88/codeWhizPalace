@@ -19,22 +19,7 @@ class HomeController
         $content = $this->categoryService->read();
         echo $this->view->render('/App/homeApp.php', [
             'subTitle' => 'Home',
-            'tabs' => [
-                'tab-1' => [
-                    'tabName' => 'News',
-                    'tabContent' => '',
-                    'active' => true,
-                ],
-                'tab-2' => [
-                    'tabName' => 'Tags',
-                    'tabContent' => '',
-                ],
-                'tab-3' => [
-                    'tabName' => 'Categories',
-                    'tabContent' => $content,
-                    'tableHeaders' => TableHeaders::CATEGORIES
-                ],
-            ],
+            'tabs' => [],
         ]);
     }
 }

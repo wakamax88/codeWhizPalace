@@ -1,7 +1,7 @@
 <!-- List -->
 <div class="card shadow">
     <div class="card-header py-3">
-        <p class="text-primary m-0 fw-bold"><?= $tab['tabName'] . ' List' ?></p>
+        <p class="text-primary m-0 fw-bold"><?= $tabName . ' List' ?></p>
     </div>
     <div class="card-body">
         <div class="row">
@@ -25,13 +25,13 @@
             <table id="dataTable" class="table my-0">
                 <thead>
                     <tr>
-                        <?php foreach ($tab['tableHeaders'] as $key => $tableHeader) { ?>
+                        <?php foreach ($tableHeaders as $key => $tableHeader) { ?>
                             <th><?= $tableHeader ?></th>
                         <?php } ?>
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($tab['tabContent']['rows'] as $key => $row) { ?>
+                    <?php foreach ($contents as $key => $row) { ?>
                         <tr>
                             <td><?= $row['name'] ?? '' ?></td>
                             <td><img class="rounded-circle me-2" width="30" height="30" src="/assets/img/category/<?= $row['thumbnail'] ?? 'avatar.jpg' ?>" /></td>
@@ -43,7 +43,7 @@
                 </tbody>
                 <tfoot>
                     <tr>
-                        <?php foreach ($tab['tableHeaders'] as $key => $tableHeader) { ?>
+                        <?php foreach ($tableHeaders as $key => $tableHeader) { ?>
                             <th><?= $tableHeader ?></th>
                         <?php } ?>
                     </tr>
@@ -53,23 +53,24 @@
         <div class="row">
             <div class="col-md-6 align-self-center">
                 <p id="dataTable_info" class="dataTables_info" role="status" aria-live="polite">
-                    Showing <span><?= $tab['tabContent']['offset'] + 1 ?></span> to <span>10</span> of <span id="nbElement"><?= $tab['tabContent']['nbRow'] ?></span></p>
+                    Showing <span><?= $offset + 1 ?></span> to <span><?= $limit * $pageActive ?></span> of <span><?= $numberRow ?></span></p>
+                </p>
             </div>
             <div class="col-md-6">
                 <nav class="d-lg-flex justify-content-lg-end dataTables_paginate paging_simple_numbers">
                     <ul class="pagination">
-                        <?php for ($page = 0; $page <= $tab['tabContent']['nbPage'] + 1; $page++) { ?>
+                        <?php for ($page = 0; $page <= $pageMax + 1; $page++) { ?>
                             <?php if ($page == 0) { ?>
-                                <li class="page-item <?= $tab['tabContent']['currentPage'] == 1 ? 'disabled' : '' ?>">
+                                <li class="page-item <?= $pageActive == 1 ? 'disabled' : '' ?>">
                                     <a class="page-link" aria-label="Previous" href="#"><span aria-hidden="true">«</span></a>
                                 </li>
-                            <?php } elseif ($page == $tab['tabContent']['nbPage'] + 1) { ?>
-                                <li class="page-item <?= $tab['tabContent']['currentPage'] == $tab['tabContent']['nbPage']  ? 'disabled' : '' ?>">
+                            <?php } elseif ($page == $pageMax + 1) { ?>
+                                <li class="page-item <?= $pageActive == $pageMax  ? 'disabled' : '' ?>">
                                     <a class="page-link" aria-label="Next" href="#"><span aria-hidden="true">»</span></a>
                                 </li>
                             <?php } else { ?>
-                                <li class="page-item <?= $tab['tabContent']['currentPage'] == $page ? 'active' : '' ?>">
-                                    <a class="page-link <?= $tab['tabContent']['currentPage'] ?>" href="#"><?= $page ?></a>
+                                <li class="page-item <?= $pageActive == $page ? 'active' : '' ?>">
+                                    <a class="page page-link" href="/app/blog/lists/?page=<?= $page ?>"><?= $page ?></a>
                                 </li>
                             <?php } ?>
                         <?php } ?>

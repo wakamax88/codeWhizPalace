@@ -19,7 +19,7 @@ class ForumController
         echo $this->view->render('/App/newsApp.php', [
             'subTitle' => 'Forum',
             'tabName' => 'News',
-            'sTabs' => Tabs::SECOND_TAB,
+            'tabs' => Tabs::SECOND_TAB,
             'contents' => $contents,
             'type' => 'discussion'
         ]);
@@ -31,9 +31,14 @@ class ForumController
         echo $this->view->render('/App/listsApp.php', [
             'subTitle' => 'Forum',
             'tabName' => 'Lists',
-            'sTabs' => Tabs::SECOND_TAB,
+            'tabs' => Tabs::SECOND_TAB,
             'contents' => $contents,
-            'type' => 'discussion'
+            'type' => 'discussion',
+            'pageActive' => 1,
+            'pageMax' => 3,
+            'offset' => 0,
+            'numberRow' => 20,
+            'limit' => 10
         ]);
     }
 }
