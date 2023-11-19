@@ -1,6 +1,5 @@
 <?php include $this->resolve('partials/_headerApp.php'); ?>
 <!-- Start Main Content Area -->
-<?php var_dump($alert) ?>
 <section>
     <div class="container">
         <div class="row"></div>

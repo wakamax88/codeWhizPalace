@@ -13,25 +13,14 @@ class CategoryService
     {
     }
 
-    public function read(): array
+    public function read(int $page, int $limit, int $offset): array
     {
-        $categories = $this->db->query(
-            "SELECT * FROM categories;"
+        $contents = $this->db->query(
+            "SELECT * FROM categories
+            LIMIT {$limit} OFFSET {$offset};"
         )->findAll();
-        $categoriesNb = $this->db->query(
-            "SELECT COUNT(*) as categoriesNb FROM categories;"
-        )->count();
 
-        $categoriesNbPage = ceil($categoriesNb / 1);
-
-        return [
-            'rows' => $categories,
-            'nbRow' => $categoriesNb,
-            'limit' => 10,
-            'offset' => 0,
-            'currentPage' => 1,
-            'nbPage' => $categoriesNbPage
-        ];
+        return $contents;
     }
     public function readAll()
     {
@@ -52,5 +41,10 @@ class CategoryService
             ]
         )->find();
         return $contents;
+    }
+    public function count()
+    {
+        $numberRow = $this->db->query("SELECT COUNT(*) FROM categories")->count();
+        return $numberRow;
     }
 }

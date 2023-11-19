@@ -42,10 +42,34 @@ const getPostId = (event) => {
   return cardEl.id;
 }
 
-const like = (event) => {
+const like = async (event) => {
   event.stopImmediatePropagation();
   console.log("like");
   let post_id = getPostId(event);
+  const data = {
+    token: document.querySelector(".token").value,
+  }
+  try {
+    let response = await fetch(`/app/blog/posts/${post_id}/likes`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(data),
+    });
+    response = await response.json();
+    if(response.success) {
+      const message = response.message;
+      alertBox(message, 'success');
+    } else {
+      alertBox(message, 'warning');
+    }
+    setTimeout(() => {
+      window.location.reload();
+    }, 3000);
+  } catch(error) {
+    alertBox(error, 'danger');
+  }
 
 };
 

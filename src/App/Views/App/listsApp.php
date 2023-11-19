@@ -14,9 +14,9 @@
             <div class="col-auto text-nowrap">
                 <label class="form-label">Show
                     <select id="show" class="d-inline-block form-select form-select-sm">
-                        <option value="3" <?= $limit == 3 ? 'selected' : '' ?> selected>3</option>
-                        <option value="6" <?= $limit == 6 ? 'selected' : '' ?>>6</option>
-                        <option value="9" <?= $limit == 9 ? 'selected' : '' ?>>9</option>
+                        <?php foreach ($shows as $key => $show) { ?>
+                            <option value="<?= $show ?>" <?= $show == $limit ? 'selected' : '' ?>><?= $show ?></option>
+                        <?php } ?>
                     </select>
                 </label>
             </div>
@@ -31,10 +31,13 @@
         </div>
         <!-- Body -->
         <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
-            <?php foreach ($contents as $key => $row) { ?>
-                <?php ($subTitle == 'Forum') && include $this->resolve('partials/_discussionCard.php'); ?>
-                <?php ($subTitle == 'Blog') && include $this->resolve('partials/_postCard.php'); ?>
+            <?php if (!empty($contents)) { ?>
+                <?php foreach ($contents as $key => $row) { ?>
+                    <?php ($subTitle == 'Forum') && include $this->resolve('partials/_discussionCard.php'); ?>
+                    <?php ($subTitle == 'Blog') && include $this->resolve('partials/_postCard.php'); ?>
+                <?php } ?>
             <?php } ?>
+
         </div>
         <!-- Footer -->
         <div class="p-3 row justify-content-between align-items-center">

@@ -11,26 +11,34 @@
 
         <!-- News -->
         <div class="row">
-            <div class="col">
-
+            <div class="col text-center">
+                <p>LAST </p>
             </div>
         </div>
         <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
-            <?php foreach ($contents['news'] as $key => $row) { ?>
-                <?php ($subTitle == 'Forum') && include $this->resolve('partials/_discussionCard.php'); ?>
-                <?php ($subTitle == 'Blog') && include $this->resolve('partials/_postCard.php'); ?>
+            <?php if (!empty($contents)) { ?>
+                <?php foreach ($contents['news'] as $key => $row) { ?>
+                    <?php ($subTitle == 'Forum') && include $this->resolve('partials/_discussionCard.php'); ?>
+                    <?php ($subTitle == 'Blog') && include $this->resolve('partials/_postCard.php'); ?>
+                    <?php ($subTitle == 'Resource') && include $this->resolve('partials/_postCard.php'); ?>
+                <?php } ?>
             <?php } ?>
         </div>
         <hr>
 
         <!-- Bests -->
         <div class="row">
-            <div class="col"></div>
+            <div class="col text-center">
+                <p>BEST</p>
+            </div>
         </div>
         <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
-            <?php foreach ($contents['bests'] as $key => $row) { ?>
-                <?php ($subTitle == 'Forum') && include $this->resolve('partials/_discussionCard.php'); ?>
-                <?php ($subTitle == 'Blog') && include $this->resolve('partials/_postCard.php'); ?>
+            <?php if (!empty($contents)) { ?>
+                <?php foreach ($contents['bests'] as $key => $row) { ?>
+                    <?php ($subTitle == 'Forum') && include $this->resolve('partials/_discussionCard.php'); ?>
+                    <?php ($subTitle == 'Blog') && include $this->resolve('partials/_postCard.php'); ?>
+                    <?php ($subTitle == 'Resource') && include $this->resolve('partials/_linkCard.php'); ?>
+                <?php } ?>
             <?php } ?>
         </div>
     </div>

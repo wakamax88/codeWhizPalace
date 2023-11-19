@@ -16,7 +16,6 @@ class HomeController
 
     public function home()
     {
-        $content = $this->categoryService->read();
         echo $this->view->render('/App/homeApp.php', [
             'subTitle' => 'Home',
             'tabs' => [],

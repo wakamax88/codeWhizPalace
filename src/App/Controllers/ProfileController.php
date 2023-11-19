@@ -27,7 +27,10 @@ class ProfileController
     public function read()
     {
         $profile = $this->profileService->read();
-        echo $this->view->render("/app/profileApp.php", ['profile' => $profile]);
+        echo $this->view->render("/app/profileApp.php", [
+            'profile' => $profile,
+            'subTitle' => 'Profile'
+        ]);
     }
 
     public function update()

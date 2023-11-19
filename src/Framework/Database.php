@@ -53,4 +53,8 @@ class Database
     {
         return $this->connection->lastInsertId();
     }
+    public function rowCount()
+    {
+        return $this->stmt->rowCount();
+    }
 }

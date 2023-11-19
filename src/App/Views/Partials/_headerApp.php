@@ -8,8 +8,11 @@
 
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">
     <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <?php if (isset($_SESSION['setting']['theme'])) { ?>
+        <link rel="stylesheet" href="/assets/css/bs-theme-<?= $_SESSION['setting']['theme'] ?>.css">
+    <?php }  ?>
+    <link rel=" stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link rel="stylesheet" href="/assets/css/style.css">
     <link rel="stylesheet" href="/assets/css/<?= strtolower($subTitle) ?>.css">
 </head>
 
@@ -34,7 +37,7 @@
                 </li>
                 <hr class="dropdown-divider">
                 <li><a class="dropdown-item" href="/app/profile">My profile</a></li>
-                <li><a class="dropdown-item" href="#">Settings</a></li>
+                <li><a class="dropdown-item" href="/app/setting">Settings</a></li>
                 <li>
                     <hr class="dropdown-divider">
                 </li>
@@ -56,12 +59,17 @@
             <div>
                 <hr class="mt-0">
                 <ul class="nav nav-pills flex-column mb-auto">
-                    <?php foreach ($mTabs as $key => $mTab) { ?>
+                    <?php
+
+                    use App\Config\Tabs;
+
+                    foreach ($mTabs as $key => $mTab) { ?>
                         <li class="nav-item">
-                            <a class="nav-link <?= $subTitle == $mTab ? 'active link-light' : 'link-body-emphasis' ?>" href="/app/<?= strtolower($mTab) ?>"><i class="fa-solid fa-house me-3"></i> <?= $mTab ?> </a>
+                            <a class="nav-link <?= $subTitle == $mTab ? 'active link-light' : 'link-body-emphasis' ?>" href="/app/<?= strtolower($mTab) ?>"><i class="<?= Tabs::ICON_TAB[$key] ?> me-3"></i> <?= $mTab ?> </a>
                         </li>
                     <?php } ?>
                 </ul>
             </div>
         </div>
     </div>
+    <?php var_dump($_SESSION) ?>

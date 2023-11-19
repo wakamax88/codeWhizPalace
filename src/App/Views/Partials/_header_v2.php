@@ -11,8 +11,8 @@
 </head>
 
 <body>
-    <nav class="navbar navbar-expand-md sticky-top bg-dark bg-opacity-75 py-3" data-bs-theme="dark">
-        <div class="container-fluid"><a class="navbar-brand d-flex align-items-center" href="/">
+    <nav class="navbar navbar-expand-md sticky-top bg-dark bg-opacity-75 py-1" data-bs-theme="dark">
+        <div class="container"><a class="navbar-brand d-flex align-items-center" href="/">
                 <span class="bs-icon-sm bs-icon-rounded bs-icon-primary d-flex justify-content-center align-items-center me-2 bs-icon">
                     <i class="fa-solid fa-infinity"></i>
                 </span><span>CodeWhizPalace</span></a><button data-bs-toggle="collapse" class="navbar-toggler" data-bs-target="#navcol-5"><span class="visually-hidden">Toggle navigation</span><span class="navbar-toggler-icon"></span></button>

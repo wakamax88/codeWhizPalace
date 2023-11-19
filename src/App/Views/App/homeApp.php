@@ -1,7 +1,7 @@
 <?php include $this->resolve('partials/_headerApp.php'); ?>
 <!-- Start Main Content Area -->
 <!-- <?php var_dump($_SESSION); ?> -->
-<section>
+<section class="home">
     <div class="container-fluid">
         <!-- Tabs -->
         <div class="row">

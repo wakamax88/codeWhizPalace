@@ -19,5 +19,8 @@
         <div class="p-3 row justify-content-between align-items-center">
         </div>
     </div>
+    <?php include $this->resolve('partials/_modalReadApp.php'); ?>
+    <?php include $this->resolve('partials/_modalDeleteApp.php'); ?>
+    <?php include $this->resolve('partials/_modalEditApp.php'); ?>
 </section>
 <?php include $this->resolve('partials/_footerApp.php'); ?>

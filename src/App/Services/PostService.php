@@ -181,4 +181,45 @@ class PostService
         $numberRow = $this->db->query("SELECT COUNT(*) FROM posts")->count();
         return $numberRow;
     }
+
+    public function countVote($profile_id, $post_id)
+    {
+        $numberRow = $this->db->query(
+            "SELECT COUNT(*) 
+            FROM votes 
+            WHERE votes.profile_id = :profile_id
+            AND votes.post_id = :post_id;",
+            [
+                'post_id' => $post_id,
+                'profile_id' => $profile_id
+            ]
+        )->count();
+        return $numberRow;
+    }
+
+    public function deleteVote($profile_id, $post_id)
+    {
+        $this->db->query(
+            "DELETE 
+            FROM votes
+            WHERE votes.profile_id = :profile_id
+            AND votes.post_id = :post_id;",
+            [
+                'post_id' => $post_id,
+                'profile_id' => $profile_id
+            ]
+        );
+    }
+
+    public function createVote($profile_id, $post_id)
+    {
+        $this->db->query(
+            "INSERT INTO votes(profile_id,post_id)
+            VALUES(:profile_id, :post_id);",
+            [
+                'post_id' => $post_id,
+                'profile_id' => $profile_id
+            ]
+        );
+    }
 }

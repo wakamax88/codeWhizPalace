@@ -27,18 +27,36 @@ class AccountService
 
     public function signup(array $formData)
     {
+        $numberRow = $this->count();
         $password = password_hash($formData['password'], PASSWORD_BCRYPT, ['cost' => 12]);
-        $this->db->query(
-            "INSERT INTO accounts(email, password)
-            VALUES(:email, :password)",
-            [
-                'email' => $formData['email'],
-                'password' => $password
-            ]
-        );
+        if ($numberRow == 0) {
+            $this->db->query(
+                "INSERT INTO accounts(email, password, role_id)
+                VALUES(:email, :password, :role_id)",
+                [
+                    'email' => $formData['email'],
+                    'password' => $password,
+                    'role_id' => 1,
+                ]
+            );
+        } else {
+            $this->db->query(
+                "INSERT INTO accounts(email, password, role_id)
+                VALUES(:email, :password, :role_id)",
+                [
+                    'email' => $formData['email'],
+                    'password' => $password,
+                    'role_id' => 5,
+                ]
+            );
+        }
+
+
         session_regenerate_id();
 
         $_SESSION['account'] = ['id' => $this->db->id(), 'password' => $password, 'email' => $formData['email']];
+        $_SESSION['profile'] = ['id' => null, 'pseudo' => null];
+        $_SESSION['setting'] = ['themeName' => null];
     }
 
     public function signin(array $formData)
@@ -48,9 +66,12 @@ class AccountService
             accounts.id,
             accounts.password,
             accounts.email,
+            accounts.role_id AS roleId,
+            t.name AS themeName,
             p.id AS profileId,
             p.firstname AS profilePseudo 
             FROM accounts
+            LEFT JOIN themes t ON t.id = accounts.theme_id
             LEFT JOIN profiles p ON p.account_id = accounts.id 
             WHERE email = :email",
             ['email' => $formData['email']]
@@ -67,6 +88,7 @@ class AccountService
 
         $_SESSION['account'] = ['id' => $account['id'], 'password' => $account['password'], 'email' => $account['email']];
         $_SESSION['profile'] = ['id' => $account['profileId'], 'pseudo' => $account['profilePseudo']];
+        $_SESSION['setting'] = ['theme' => $account['themeName']];
     }
 
     public function signout()
@@ -76,7 +98,6 @@ class AccountService
         session_destroy();
     }
 
-    /* test if the email still exists and if the password has not changed */
     public function verify(array $sessionAccount): bool
     {
         $account = $this->db->query("SELECT * FROM accounts WHERE email = :email", ['email' => $sessionAccount['email']])->find();
@@ -84,5 +105,89 @@ class AccountService
 
         // ToDo
         return $passwordMatch;
+    }
+
+    public function read(int $page, int $limit, int $offset)
+    {
+        $contents = $this->db->query(
+            "SELECT 
+            accounts.id,
+            accounts.email,
+            p.id AS profileId,
+            p.firstname AS profileFirstname,
+            p.lastname AS profileLastname,
+            r.id AS roleId,
+            r.name AS roleName
+            FROM accounts
+            JOIN roles r ON r.id = accounts.role_id
+            LEFT JOIN profiles p ON p.account_id = accounts.id
+            LIMIT {$limit} OFFSET {$offset};"
+        )->findAll();
+
+        return $contents;
+    }
+
+    public function count()
+    {
+        $numberRow = $this->db->query("SELECT COUNT(*) FROM accounts")->count();
+        return $numberRow;
+    }
+
+    public function readAllRole()
+    {
+        $contents = $this->db->query(
+            "SELECT * FROM roles;"
+        )->findAll();
+
+        return $contents;
+    }
+
+    public function delete(int $id)
+    {
+        $this->db->query(
+            "DELETE FROM accounts WHERE accounts.id = :id",
+            [
+                'id' => $id
+            ]
+        );
+    }
+
+    public function hasAdmin()
+    {
+        $numberRow = $this->db->query(
+            "SELECT COUNT(*) 
+            FROM accounts
+            JOIN roles r ON r.id = accounts.role_id
+            where r.name = 'admin';"
+        )->count();
+
+        return $numberRow;
+    }
+
+    public function getAccount(int $id)
+    {
+        $account = $this->db->query(
+            "SELECT * 
+            FROM accounts 
+            where accounts.id = :id;",
+            [
+                'id' => $id,
+            ]
+        )->find();
+
+        return $account;
+    }
+
+    public function updateUsers($account_id, $role_id)
+    {
+        $this->db->query(
+            "UPDATE accounts
+            SET role_id = :role_id
+            WHERE accounts.id = :account_id;",
+            [
+                'role_id' => $role_id,
+                'account_id' => $account_id
+            ]
+        );
     }
 }

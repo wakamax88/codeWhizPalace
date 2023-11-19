@@ -6,7 +6,7 @@ namespace App\Controllers;
 
 use App\Config\Paths;
 use Framework\TemplateEngine;
-use App\Config\Tabs;
+use App\Config\{Tabs, Show};
 use App\Services\CategoryService;
 use App\Services\PostService;
 use App\Services\ValidatorService;
@@ -17,9 +17,8 @@ class BlogController
     {
     }
 
-    public function home($parameters)
+    public function home()
     {
-        $page = $_GET['p'] ?? 1;
         $contents = $this->postService->home();
         echo $this->view->render('/App/newsApp.php', [
             'subTitle' => 'Blog',
@@ -43,14 +42,9 @@ class BlogController
 
     public function lists()
     {
-        $show = abs((int) filter_var($_GET['show'] ?? 3, FILTER_SANITIZE_NUMBER_INT));
-        $limit = in_array($show, [3, 6, 9]) ? $show : 3;
-        $page = abs((int) filter_var($_GET['page'] ?? 1, FILTER_SANITIZE_NUMBER_INT));
         $numberRow = $this->postService->count();
-        $pageMax = (int) ceil($numberRow / $limit);
-        $page = $page > $pageMax ? $pageMax : $page;
-        $page = $page < 1 ? 1 : $page;
-        $offset = ($page - 1) * $limit;
+        $pagination = calculPagination($numberRow, Show::POSTS, Show::POSTS[0]);
+        extract($pagination);
         $contents = $this->postService->readAll($page, $limit, $offset);
         echo $this->view->render('/App/listsApp.php', [
             'subTitle' => 'Blog',
@@ -62,7 +56,8 @@ class BlogController
             'pageMax' => $pageMax,
             'offset' => $offset,
             'numberRow' => $numberRow,
-            'limit' => $limit
+            'limit' => $limit,
+            'shows' => Show::POSTS
         ]);
     }
 
@@ -79,6 +74,7 @@ class BlogController
             exit;
         }
     }
+
     public function create()
     {
         $this->validatorService->validatePost($_POST);
@@ -121,5 +117,24 @@ class BlogController
             echo json_encode($response);
             exit;
         }
+    }
+
+    public function updateLike($parameters)
+    {
+        $post_id = (int) filter_var($parameters['id'], FILTER_SANITIZE_NUMBER_INT);
+        $profile_id = $_SESSION['profile']['id'];
+        $post = $this->postService->read($post_id);
+        if ($post['profile_id'] != $profile_id) {
+            $vote = $this->postService->countVote($profile_id, $post_id);
+            if ($vote) {
+                $this->postService->deleteVote($profile_id, $post_id);
+            } else {
+                $this->postService->createVote($profile_id, $post_id);
+            }
+        }
+        $response = ['message' => "Update Post Like", 'success' => true];
+        header("Content-Type: application/json");
+        echo json_encode($response);
+        exit;
     }
 }

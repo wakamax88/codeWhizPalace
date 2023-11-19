@@ -14,7 +14,7 @@
                 </div>
             </div>
 
-            <p class="card-text"><?= e($row['excerpt'] ?? '') ?></p>
+            <p class="card-text" style="text-align: justify;"><?= e($row['excerpt'] ?? '') ?></p>
             <div class="d-flex">
                 <img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" />
                 <div>

@@ -1,5 +1,6 @@
 <!-- List -->
 <div class="card shadow">
+    <?php include $this->resolve('partials/_csrf.php'); ?>
     <div class="card-header py-3">
         <p class="text-primary m-0 fw-bold"><?= $tabName . ' List' ?></p>
     </div>
@@ -9,10 +10,9 @@
                 <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
                     <label class="form-label">Show
                         <select class="d-inline-block form-select form-select-sm">
-                            <option value="10" selected>10</option>
-                            <option value="25">25</option>
-                            <option value="50">50</option>
-                            <option value="100">100</option>
+                            <?php foreach ($shows as $key => $show) { ?>
+                                <option value="<?= $show ?>" <?= $show == $limit ? 'selected' : '' ?>><?= $show ?></option>
+                            <?php } ?>
                         </select>
                     </label>
                 </div>
@@ -31,15 +31,11 @@
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($contents as $key => $row) { ?>
-                        <tr>
-                            <td><?= $row['name'] ?? '' ?></td>
-                            <td><img class="rounded-circle me-2" width="30" height="30" src="/assets/img/category/<?= $row['thumbnail'] ?? 'avatar.jpg' ?>" /></td>
-                            <td class="text-truncate" style="max-width: 150px;"><?= $row['description'] ?? '' ?></td>
-                            <td><i class="fa-regular fa-pen-to-square"></i></td>
-                            <td><i class="fa-regular fa-trash-can"></i></td>
-                        </tr>
-                    <?php } ?>
+                    <?php ($type == 'account') && include $this->resolve('partials/_accountTable.php'); ?>
+                    <?php ($type == 'category') && include $this->resolve('partials/_categoryTable.php'); ?>
+
+
+
                 </tbody>
                 <tfoot>
                     <tr>
@@ -70,7 +66,7 @@
                                 </li>
                             <?php } else { ?>
                                 <li class="page-item <?= $pageActive == $page ? 'active' : '' ?>">
-                                    <a class="page page-link" href="/app/blog/lists/?page=<?= $page ?>"><?= $page ?></a>
+                                    <a class="page page-link" href="/app/admin/<?= strtolower($tabName) ?>/?page=<?= $page ?>"><?= $page ?></a>
                                 </li>
                             <?php } ?>
                         <?php } ?>
