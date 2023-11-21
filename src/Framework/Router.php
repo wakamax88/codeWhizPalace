@@ -50,7 +50,7 @@ class Router
 
     public function dispatchNotFound()
     {
-        dd("not found");
+        include __DIR__ . '/../App/Views/404.php';
     }
 
     public function dispatchError($e)

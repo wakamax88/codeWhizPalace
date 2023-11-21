@@ -35,6 +35,7 @@
                 <?php foreach ($contents as $key => $row) { ?>
                     <?php ($subTitle == 'Forum') && include $this->resolve('partials/_discussionCard.php'); ?>
                     <?php ($subTitle == 'Blog') && include $this->resolve('partials/_postCard.php'); ?>
+                    <?php ($subTitle == 'Resource') && include $this->resolve('partials/_linkCard.php'); ?>
                 <?php } ?>
             <?php } ?>
 

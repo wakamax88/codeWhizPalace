@@ -31,7 +31,7 @@ class ResourceController
     public function lists()
     {
         $numberRow = $this->linkService->count();
-        $pagination = calculPagination($numberRow, [3, 6, 9]);
+        $pagination = calculPagination($numberRow, [3, 6, 9], 3);
         extract($pagination);
         echo $this->view->render('/app/listsApp.php', [
             'subTitle' => 'Resource',
