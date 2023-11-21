@@ -6,14 +6,16 @@ namespace App\Controllers;
 
 use App\Config\Paths;
 use Framework\TemplateEngine;
-use App\Config\{Tabs, Show};
+use App\Config\{Sanitize, Tabs, Show};
+
 use App\Services\CategoryService;
 use App\Services\PostService;
+use App\Services\SanitizeService;
 use App\Services\ValidatorService;
 
 class BlogController
 {
-    public function __construct(private TemplateEngine $view, private ValidatorService $validatorService, private PostService $postService, private CategoryService $categoryService)
+    public function __construct(private TemplateEngine $view, private ValidatorService $validatorService, private PostService $postService, private CategoryService $categoryService, private SanitizeService $sanitizeService)
     {
     }
 
@@ -64,11 +66,18 @@ class BlogController
     public function update($parameters)
     {
         //$this->validatorService->validatePost($_POST);
-
         $post_id = (int) filter_var($parameters['id'], FILTER_SANITIZE_NUMBER_INT);
-        $this->postService->update($_POST, $post_id);
-        if (true) {
-            $response = ['message' => "Update Post", 'success' => true];
+        $profile_id = $_SESSION['profile']['id'];
+        $role_id = $_SESSION['account']['roleId'];
+        $post = $this->postService->read($post_id);
+        if ($post != null && ($post['profile_id'] == $profile_id || $role_id == 2)) {
+            $changeData = $this->postService->update($_POST, $post_id);
+            $response = ['message' => "Update Post {$changeData}", 'success' => true];
+            header("Content-Type: application/json");
+            echo json_encode($response);
+            exit;
+        } else {
+            $response = ['message' => "Not Authorized", 'success' => false];
             header("Content-Type: application/json");
             echo json_encode($response);
             exit;
@@ -77,8 +86,10 @@ class BlogController
 
     public function create()
     {
-        $this->validatorService->validatePost($_POST);
+        $formData = $this->sanitizeService->sanitize($_POST, Sanitize::POST);
+        $this->validatorService->validatePost($formData);
         $imageNameNew = '';
+        //TODO extract function Imgage
         if (isset($_FILES['thumbnail'])) {
             $this->validatorService->validatorFile($_FILES['thumbnail']);
             $image = $_FILES['thumbnail'];
@@ -97,22 +108,35 @@ class BlogController
             move_uploaded_file($imageTmpName, $imageDestination);
         }
 
-
-        $this->postService->create($_POST, $imageNameNew);
-        if (true) {
+        $profile_id = $_SESSION['profile']['id'];
+        $role_id = $_SESSION['account']['roleId'];
+        if ($profile_id != null && $role_id == 3) {
+            $this->postService->create($_POST, $imageNameNew);
             $response = ['message' => "Create Post", 'success' => true];
             header("Content-Type: application/json");
             echo json_encode($response);
             exit;
+        } else {
+            $response = ['message' => "Not Authorized", 'success' => false];
+            header("Content-Type: application/json");
+            echo json_encode($response);
         }
     }
 
     public function delete($parameters)
     {
         $post_id = (int) filter_var($parameters['id'], FILTER_SANITIZE_NUMBER_INT);
-        $id = $this->postService->delete($post_id);
-        if (true) {
-            $response = ['message' => "Delete Post", 'success' => true];
+        $profile_id = $_SESSION['profile']['id'];
+        $post = $this->postService->read($post_id);
+
+        if ($post != null && ($post['profile_id'] == $profile_id)) {
+            $changeData = $this->postService->delete($post_id);
+            $response = ['message' => "Delete Post {$changeData}", 'success' => true];
+            header("Content-Type: application/json");
+            echo json_encode($response);
+            exit;
+        } {
+            $response = ['message' => "Not Authorized", 'success' => false];
             header("Content-Type: application/json");
             echo json_encode($response);
             exit;
@@ -124,7 +148,7 @@ class BlogController
         $post_id = (int) filter_var($parameters['id'], FILTER_SANITIZE_NUMBER_INT);
         $profile_id = $_SESSION['profile']['id'];
         $post = $this->postService->read($post_id);
-        if ($post['profile_id'] != $profile_id) {
+        if (($post != null) && ($profile_id != null) && ($post['profile_id'] != $profile_id)) {
             $vote = $this->postService->countVote($profile_id, $post_id);
             if ($vote) {
                 $this->postService->deleteVote($profile_id, $post_id);

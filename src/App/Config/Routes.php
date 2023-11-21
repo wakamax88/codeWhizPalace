@@ -31,7 +31,7 @@ function registerRoutes(App $app)
     $app->patch('/app/blog/posts/update/{id}', [BlogController::class, 'update']);
     $app->delete('/app/blog/posts/delete/{id}', [BlogController::class, 'delete']);
     $app->patch('/app/blog/posts/{id}/likes', [BlogController::class, 'updateLike']);
-    $app->post('/app/blog/posts', [BlogController::class, 'create']);
+    $app->post('/app/blog/posts', [BlogController::class, 'create'], [AuthnMiddleware::class]);
     $app->get('/app/blog', [BlogController::class, 'home']);
     $app->get('/app/blog/news', [BlogController::class, 'home']);
     $app->get('/app/blog/lists/{?}', [BlogController::class, 'lists']);

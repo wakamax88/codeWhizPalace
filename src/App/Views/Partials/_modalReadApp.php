@@ -10,7 +10,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-light cwp-close-modal" type="button">Close</button>
-                <button class="btn btn-primary" type="button">Save</button>
+                <button class="btn btn-primary add hidden" type="button">Save</button>
             </div>
         </div>
     </div>

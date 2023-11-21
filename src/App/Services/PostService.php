@@ -100,7 +100,7 @@ class PostService
 
     public function update(array $formData, int $id)
     {
-        $this->db->query(
+        $changeData = $this->db->query(
             "UPDATE posts
             SET title = :title,
             content = :content,
@@ -116,7 +116,8 @@ class PostService
                 'alt' => $formData['alt'],
                 'id' => $id
             ]
-        );
+        )->rowCount();
+        return $changeData;
     }
 
     public function delete(int $id)
@@ -132,9 +133,10 @@ class PostService
     public function read(int $id): array|false
     {
         $post = $this->db->query(
-            "SELECT * 
-            FROM `posts` 
-            WHERE `id` = :id;",
+            "SELECT posts.*, c.name AS categoryName 
+            FROM `posts`
+            JOIN categories c ON posts.category_id = c.id 
+            WHERE posts.`id` = :id;",
             ['id' => $id]
         )->find();
 
@@ -199,7 +201,7 @@ class PostService
 
     public function deleteVote($profile_id, $post_id)
     {
-        $this->db->query(
+        $changeData = $this->db->query(
             "DELETE 
             FROM votes
             WHERE votes.profile_id = :profile_id
@@ -208,7 +210,8 @@ class PostService
                 'post_id' => $post_id,
                 'profile_id' => $profile_id
             ]
-        );
+        )->rowCount();
+        return $changeData;
     }
 
     public function createVote($profile_id, $post_id)

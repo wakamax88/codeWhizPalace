@@ -30,23 +30,25 @@ class AccountService
         $numberRow = $this->count();
         $password = password_hash($formData['password'], PASSWORD_BCRYPT, ['cost' => 12]);
         if ($numberRow == 0) {
+            $role_id = 1;
             $this->db->query(
                 "INSERT INTO accounts(email, password, role_id)
                 VALUES(:email, :password, :role_id)",
                 [
                     'email' => $formData['email'],
                     'password' => $password,
-                    'role_id' => 1,
+                    'role_id' => $role_id,
                 ]
             );
         } else {
+            $role_id = 5;
             $this->db->query(
                 "INSERT INTO accounts(email, password, role_id)
                 VALUES(:email, :password, :role_id)",
                 [
                     'email' => $formData['email'],
                     'password' => $password,
-                    'role_id' => 5,
+                    'role_id' => $role_id,
                 ]
             );
         }
@@ -54,7 +56,7 @@ class AccountService
 
         session_regenerate_id();
 
-        $_SESSION['account'] = ['id' => $this->db->id(), 'password' => $password, 'email' => $formData['email']];
+        $_SESSION['account'] = ['id' => $this->db->id(), 'password' => $password, 'email' => $formData['email'], 'roleId' => $role_id];
         $_SESSION['profile'] = ['id' => null, 'pseudo' => null];
         $_SESSION['setting'] = ['themeName' => null];
     }
@@ -86,7 +88,7 @@ class AccountService
         session_regenerate_id();
 
 
-        $_SESSION['account'] = ['id' => $account['id'], 'password' => $account['password'], 'email' => $account['email']];
+        $_SESSION['account'] = ['id' => $account['id'], 'password' => $account['password'], 'email' => $account['email'], 'roleId' => $account['roleId']];
         $_SESSION['profile'] = ['id' => $account['profileId'], 'pseudo' => $account['profilePseudo']];
         $_SESSION['setting'] = ['theme' => $account['themeName']];
     }

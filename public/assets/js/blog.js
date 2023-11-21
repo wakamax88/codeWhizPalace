@@ -23,6 +23,7 @@ let altEl = document.querySelector("#alt");
 let exercptEl = document.querySelector('#exercpt');
 let categoryEl = document.getElementById('category');
 let titleModalEditEl = document.querySelector("#titleModalEdit");
+let contentModalDeleteEl = document.querySelector("#modal-delete .modal-body");
 let titleModalDeleteEl = document.getElementById('titleModalDelete');
 let post_id = '';
 var options = {
@@ -41,6 +42,24 @@ const getPostId = (event) => {
   let cardEl = event.currentTarget.closest(".card");
   return cardEl.id;
 }
+
+function toCamelCase(inputString) {
+  let words = inputString.split(' ');
+  console.log(words);
+  for(let i = 0; i < words.length; i++) {
+    words[i] = words[i].charAt(0).toLowerCase() + words[i].slice(1);
+    if(i > 0) {
+      words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
+    }
+  }
+  let camelCaseString = words.join('');
+  return camelCaseString;
+}
+
+// Exemple d'utilisation
+let inputString = "Web Developement";
+let result = toCamelCase(inputString);
+console.log(result); // Affiche "webDevelopement"
 
 const like = async (event) => {
   event.stopImmediatePropagation();
@@ -97,11 +116,17 @@ const openReadModal = async (event) => {
   let post_id = getPostId(event);
   let post = await getPostById(post_id);
 
-  let contentModalEl = modalReadEl.querySelector(".modal-body");
-  let exercptModalEl = modalReadEl.querySelector("exercpt");
-
-  contentModalEl.innerHTML = post.text;
-
+  let contentModalEl = document.querySelector(".modal-body");
+  let exercptModalEl = document.querySelector("exercpt");
+  let titleModalEl = document.querySelector(".modal-title");
+  let imageEl = document.createElement("img");
+  //imageEl.append(contentModalEl);
+  let categoryName = toCamelCase(post.categoryName);
+  imageEl.src = `/assets/img/${categoryName}/${post.thumbnail}`;
+  console.log(imageEl);
+  titleModalEl.textContent = post.title;
+  contentModalEl.innerHTML = post.content;
+  console.log(post);
   modalReadEl.classList.toggle("show");
 
 };
@@ -125,6 +150,7 @@ const openDeleteModal = (event) => {
   event.stopImmediatePropagation();
   post_id = getPostId(event);
   titleModalDeleteEl.textContent = "Delete Post";
+  contentModalDeleteEl.textContent = "Veuillez confirmer pour supprimer cet article"
   actionYes.addEventListener('click', async () => {
     const data = {
       token: document.querySelector(".token").value,
@@ -140,9 +166,10 @@ const openDeleteModal = (event) => {
       response = await response.json();
       closeModal();
       if(response.success) {
-        const message = response.message;
+        let message = response.message;
         alertBox(message, 'success');
       } else {
+        let message = response.message;
         alertBox(message, 'warning');
       }
       setTimeout(() => {
@@ -177,9 +204,10 @@ const openCreateModal = async (event) => {
       response = await response.json();
       closeModal();
       if(response.success) {
-        const message = response.message;
+        let message = response.message;
         alertBox(message, 'success');
       } else {
+        let message = response.message
         alertBox(message, 'warning');
       }
       setTimeout(() => {

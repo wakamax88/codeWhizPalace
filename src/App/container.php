@@ -4,11 +4,12 @@ declare(strict_types=1);
 
 use Framework\{TemplateEngine, Database, Container};
 use App\Config\Paths;
-use App\Services\{ValidatorService, AccountService, CategoryService, DiscussionService, LinkService, ProfileService, PostService, SettingService};
+use App\Services\{ValidatorService, AccountService, CategoryService, DiscussionService, LinkService, ProfileService, PostService, SanitizeService, SettingService};
 
 return [
     TemplateEngine::class => fn () => new TemplateEngine(Paths::VIEW),
     ValidatorService::class => fn () => new ValidatorService(),
+    SanitizeService::class => fn () => new SanitizeService(),
     Database::class => fn () => new Database('mysql', ['host' => 'localhost', 'port' => 3306, 'dbname' => 'code_whiz_palace'], 'root', ''),
     AccountService::class => function (Container $container) {
         $db = $container->get(Database::class);

@@ -64,7 +64,7 @@ class ValidatorService
             'alt' => ['required'],
             'excerpt' => ['required'],
             'content' => ['required'],
-            'alt' => ['required']
+            'categoryId' => ['required'],
         ]);
     }
     public function validatorFile(array $files)
