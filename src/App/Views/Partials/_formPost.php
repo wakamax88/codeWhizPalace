@@ -5,7 +5,7 @@
     <!-- Title -->
     <div class="text-start mb-3">
         <label class="form-label text-light">Title</label>
-        <input class="form-control" type="text" name="title" id="title">
+        <input class="form-control" type="text" name="title" id="title" require>
 
         <div class="text-muted">
 
@@ -13,13 +13,13 @@
 
     </div>
     <div>
-        <select class="form-select" aria-label="Default select example" id="category">
+        <select class="form-select" aria-label="Default select example" id="category" require>
         </select>
     </div>
     <!-- Thumbnail -->
     <div class="text-start mb-3">
         <label class="form-label text-light">Thumbnail</label>
-        <input id="thumbnail" class="form-control" type="file" name="thumbnail" accept="image/png, image/jpeg">
+        <input id="thumbnail" class="form-control" type="file" name="thumbnail" accept="image/png, image/jpeg" require>
 
         <div class="text-muted">
 
@@ -30,7 +30,7 @@
     <!-- Alt -->
     <div class="text-start mb-3">
         <label class="form-label text-light">Alt</label>
-        <input class="form-control" type="text" name="alt" id="alt">
+        <input class="form-control" type="text" name="alt" id="alt" require>
 
         <div class="text-muted">
 
@@ -41,7 +41,7 @@
     <!-- Exercpt -->
     <div class="text-start mb-3">
         <label class="form-label text-light">Exercpt </label>
-        <textarea class="form-control" name="exercpt" id="exercpt" rows="3"></textarea>
+        <textarea class="form-control" name="exercpt" id="exercpt" rows="3" require></textarea>
 
         <div class="text-muted">
 

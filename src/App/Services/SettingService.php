@@ -17,7 +17,7 @@ class SettingService
         $accountId = $_SESSION['account']['id'];
         $contents = [
             'themes' => $this->getAllTheme(),
-            'themeActive' => $this->getThemeByAccount($accountId)
+            'themeActive' => $this->getThemeByAccount((int) $accountId)
         ];
 
         return $contents;

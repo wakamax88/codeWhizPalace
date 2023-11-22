@@ -27,10 +27,10 @@ function registerRoutes(App $app)
     $app->get('/app/setting', [SettingController::class, 'home']);
     $app->post('/app/setting', [SettingController::class, 'update']);
     // BLOG
-    $app->get('/app/blog/posts/{id}', [BlogController::class, 'read']);
-    $app->patch('/app/blog/posts/update/{id}', [BlogController::class, 'update']);
-    $app->delete('/app/blog/posts/delete/{id}', [BlogController::class, 'delete']);
-    $app->patch('/app/blog/posts/{id}/likes', [BlogController::class, 'updateLike']);
+    $app->get('/app/blog/posts/{id}', [BlogController::class, 'read'],  [AuthnMiddleware::class]);
+    $app->patch('/app/blog/posts/update/{id}', [BlogController::class, 'update'], [AuthnMiddleware::class]);
+    $app->delete('/app/blog/posts/delete/{id}', [BlogController::class, 'delete'], [AuthnMiddleware::class]);
+    $app->patch('/app/blog/posts/{id}/likes', [BlogController::class, 'updateLike'], [AuthnMiddleware::class]);
     $app->post('/app/blog/posts', [BlogController::class, 'create'], [AuthnMiddleware::class]);
     $app->get('/app/blog', [BlogController::class, 'home']);
     $app->get('/app/blog/news', [BlogController::class, 'home']);

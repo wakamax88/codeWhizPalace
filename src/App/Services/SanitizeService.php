@@ -43,8 +43,13 @@ class SanitizeService
                 return $item;
         }, $items);
     }
-    public function sanitize(array $inputs, array $fields = [], int $default_filter = FILTER_SANITIZE_FULL_SPECIAL_CHARS, array $filters = self::FILTERS, bool $trim = true): array
-    {
+    public function sanitize(
+        array $inputs,
+        array $fields = [],
+        int $default_filter = FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+        array $filters = self::FILTERS,
+        bool $trim = true
+    ): array {
         if ($fields) {
             $options = array_map(fn ($field) => $filters[$field], $fields);
             $data = filter_var_array($inputs, $options);

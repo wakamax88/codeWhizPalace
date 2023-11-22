@@ -65,13 +65,14 @@ class BlogController
 
     public function update($parameters)
     {
-        //$this->validatorService->validatePost($_POST);
+        $formData = $this->sanitizeService->sanitize($_POST, Sanitize::POST);
+        $this->validatorService->validatePost($formData);
         $post_id = (int) filter_var($parameters['id'], FILTER_SANITIZE_NUMBER_INT);
         $profile_id = $_SESSION['profile']['id'];
         $role_id = $_SESSION['account']['roleId'];
         $post = $this->postService->read($post_id);
         if ($post != null && ($post['profile_id'] == $profile_id || $role_id == 2)) {
-            $changeData = $this->postService->update($_POST, $post_id);
+            $changeData = $this->postService->update($formData, $post_id);
             $response = ['message' => "Update Post {$changeData}", 'success' => true];
             header("Content-Type: application/json");
             echo json_encode($response);
@@ -111,7 +112,7 @@ class BlogController
         $profile_id = $_SESSION['profile']['id'];
         $role_id = $_SESSION['account']['roleId'];
         if ($profile_id != null && $role_id == 3) {
-            $this->postService->create($_POST, $imageNameNew);
+            $this->postService->create($formData, $imageNameNew);
             $response = ['message' => "Create Post", 'success' => true];
             header("Content-Type: application/json");
             echo json_encode($response);
