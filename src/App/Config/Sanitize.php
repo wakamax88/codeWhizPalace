@@ -13,4 +13,10 @@ class Sanitize
         'content' => 'string',
         'categoryId' => 'int'
     ];
+
+    const CONTACT = [
+        'name' => 'string',
+        'email' => 'email',
+        'message' => 'string'
+    ];
 }

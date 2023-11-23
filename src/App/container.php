@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 use Framework\{TemplateEngine, Database, Container};
 use App\Config\Paths;
-use App\Services\{ValidatorService, AccountService, CategoryService, DiscussionService, LinkService, ProfileService, PostService, SanitizeService, SettingService};
+use App\Services\{ValidatorService, AccountService, CategoryService, DiscussionService, LinkService, MailService, ProfileService, PostService, SanitizeService, SettingService};
 
 return [
     TemplateEngine::class => fn () => new TemplateEngine(Paths::VIEW),

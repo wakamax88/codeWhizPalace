@@ -12,7 +12,9 @@ use App\Controllers\{AdminController, PageController, ProfileController, HomeCon
 function registerRoutes(App $app)
 {
     $app->get('/', [PageController::class, 'home']);
-    $app->get('/about', [PageController::class, 'about']);
+    $app->get('/docs', [PageController::class, 'docs']);
+    $app->get('/contact', [PageController::class, 'contactView']);
+    $app->post('/contact', [PageController::class, 'contact']);
     $app->get('/signup', [AuthController::class, 'signupView']);
     $app->post('/signup', [AuthController::class, 'signup']);
     $app->get('/signin', [AuthController::class, 'signinView']);

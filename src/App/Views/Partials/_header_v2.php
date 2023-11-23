@@ -20,8 +20,8 @@
             <div class="collapse navbar-collapse" id="navcol-5">
                 <ul class="navbar-nav me-auto">
                     <li class="nav-item"><a class="nav-link active" href="#">Apps</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Docs</a></li>
-                    <li class="nav-item"><a class="nav-link" href="#">Contact</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/docs">Docs</a></li>
+                    <li class="nav-item"><a class="nav-link" href="/contact">Contact</a></li>
                 </ul>
                 <div class="btn-group focus-ring d-flex d-sm-flex d-md-inline-flex flex-column flex-md-row" role="group">
                     <?php if (isset($_SESSION['account'])) { ?>

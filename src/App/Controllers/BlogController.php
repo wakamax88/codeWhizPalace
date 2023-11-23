@@ -92,7 +92,7 @@ class BlogController
         $imageNameNew = '';
         //TODO extract function Imgage
         if (isset($_FILES['thumbnail'])) {
-            $this->validatorService->validatorFile($_FILES['thumbnail']);
+            $this->validatorService->validateFile($_FILES['thumbnail']);
             $image = $_FILES['thumbnail'];
             $imageName = $image['name'];
             $imageExt = pathinfo($imageName, PATHINFO_EXTENSION);

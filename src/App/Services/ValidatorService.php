@@ -67,11 +67,19 @@ class ValidatorService
             'categoryId' => ['required'],
         ]);
     }
-    public function validatorFile(array $files)
+    public function validateFile(array $files)
     {
         $this->validator->validate($files, [
             'name' => ['extension:jpeg,png,jpg'],
             //'size' => ['size:1000000']
+        ]);
+    }
+    public  function validateContact(array $formData)
+    {
+        $this->validator->validate($formData, [
+            'name' => ['required'],
+            'email' => ['required', 'email'],
+            'message' => ['required']
         ]);
     }
 }
