@@ -19,11 +19,12 @@ class ResourceController
 
     public function home()
     {
+        $contents = $this->linkService->home();
         echo $this->view->render('App/newsApp.php', [
             'subTitle' => 'Resource',
             'tabName' => 'News',
             'tabs' => Tabs::SECOND_TAB,
-            'contents' => [],
+            'contents' => $contents,
             'type' => 'link'
         ]);
     }

@@ -2,7 +2,7 @@
 <div class="col">
 
     <div class="card shadow" id="<?= strtolower($type) ?>_<?= e($row['id'] ?? '') ?>">
-        <img class="card-img-top w-100 d-block fit-cover" style="height: 200px;" src="/assets/img/post/<?= capitalizeFirstLetter(e($row['categoryName'] ?? ''))  ?>/<?= e($row['thumbnail']) ?>" />
+        <img class="card-img-top w-100 d-block fit-cover" style="height: 200px;" src="/assets/img/post/<?= capitalizeFirstLetter(e($row['categoryName'] ?? ''))  ?>/<?= e($row['thumbnail'] ?? '') ?>" />
         <div class="card-body p-4">
             <div class="d-flex">
                 <div>
