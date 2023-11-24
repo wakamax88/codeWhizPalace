@@ -1,7 +1,7 @@
 <?php include $this->resolve('partials/_header_v2.php'); ?>
 <!-- Start Main Content Area -->
 <section>
-    <?php var_dump($formData) ?>
+
     <div class="container">
         <div class="row">
             <!-- Page Title -->
