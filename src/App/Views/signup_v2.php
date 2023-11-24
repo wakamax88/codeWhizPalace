@@ -1,7 +1,4 @@
 <?php include $this->resolve("partials/_header_v2.php"); ?>
-<?php if (!empty($errors)) { ?>
-    <?php var_dump($errors) ?>
-<?php } ?>
 <section class="position-relative py-4 py-xl-5">
     <div class="container">
         <div class="row mb-5">
@@ -23,9 +20,7 @@
                                 <input value="<?= e($oldFormData['email'] ?? '') ?>" class="form-control" type="email" name="email">
 
                                 <div class="text-muted">
-                                    <?php if (array_key_exists('email', $errors)) { ?>
-                                        <?php echo e($errors['email'][0]); ?>
-                                    <?php } ?>
+                                    <?= e($errors['email'][0] ?? ''); ?>
                                 </div>
 
                             </div>
@@ -36,9 +31,7 @@
                                 <input class="form-control" type="password" name="password">
 
                                 <div class="text-muted">
-                                    <?php if (array_key_exists('password', $errors)) { ?>
-                                        <?php echo e($errors['password'][0]); ?>
-                                    <?php } ?>
+                                    <?= e($errors['password'][0] ?? ''); ?>
                                 </div>
 
                             </div>
@@ -49,9 +42,7 @@
                                 <input class="form-control" type="password" name="confirmPassword">
 
                                 <div class="text-muted">
-                                    <?php if (array_key_exists('confirmPassword', $errors)) { ?>
-                                        <?php echo e($errors['confirmPassword'][0]); ?>
-                                    <?php } ?>
+                                    <?= e($errors['confirmPassword'][0] ?? ''); ?>
                                 </div>
 
                             </div>

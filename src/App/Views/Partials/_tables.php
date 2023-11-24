@@ -9,7 +9,7 @@
             <div class="col-md-6 text-nowrap">
                 <div id="dataTable_length" class="dataTables_length" aria-controls="dataTable">
                     <label class="form-label">Show
-                        <select class="d-inline-block form-select form-select-sm">
+                        <select id="show" class="d-inline-block form-select form-select-sm">
                             <?php foreach ($shows as $key => $show) { ?>
                                 <option value="<?= $show ?>" <?= $show == $limit ? 'selected' : '' ?>><?= $show ?></option>
                             <?php } ?>

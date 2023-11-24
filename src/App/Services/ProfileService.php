@@ -28,6 +28,7 @@ class ProfileService
             ]
         );
         $_SESSION['profile'] = ['id' => $this->db->id()];
+        $_SESSION['profile'] = ['pseudo' => $formData['firstname']];
     }
 
     public function read()

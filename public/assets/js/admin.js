@@ -7,8 +7,8 @@ let deleteBtns = document.querySelectorAll(".cwp-delete-btn");
 let closeModalBtns = document.querySelectorAll(".cwp-close-modal");
 let actionYes = document.getElementById("actionYes");
 let roleSelects = document.querySelectorAll(".role");
-
-
+let pageLinks = document.querySelectorAll(".page");
+let showEl = document.getElementById("show");
 let account_id = "";
 
 const alertBox = (message, type) => {
@@ -16,13 +16,13 @@ const alertBox = (message, type) => {
   alertDiv.className = `alert alert-${type} alert-dismissible d-flex align-items-center`;
   alertDiv.setAttribute("role", "alert");
   let iconClass = "";
-  if(type === "success") {
+  if (type === "success") {
     iconClass = "fa-circle-check";
-  } else if(type === "danger") {
+  } else if (type === "danger") {
     iconClass = "fa-skull-crossbones";
-  } else if(type === "warning") {
+  } else if (type === "warning") {
     iconClass = "fa-triangle-exclamation";
-  } else if(type === "info") {
+  } else if (type === "info") {
     iconClass = "fa-circle-info";
   }
   alertDiv.innerHTML = `
@@ -63,7 +63,7 @@ const openDeleteModal = (event) => {
       });
       closeModal();
       response = await response.json();
-      if(response.success) {
+      if (response.success) {
         const message = response.message;
         alertBox(message, "success");
       } else {
@@ -72,7 +72,7 @@ const openDeleteModal = (event) => {
       setTimeout(() => {
         window.location.reload();
       }, 3000);
-    } catch(error) {
+    } catch (error) {
       alertBox(error, "danger");
     }
   });
@@ -84,7 +84,7 @@ const updateRole = async (event) => {
   account_id = event.target.id;
   const data = {
     token: document.querySelector(".token").value,
-    role: event.target.value
+    role: event.target.value,
   };
   try {
     let response = await fetch(`/app/admin/users/${account_id}/update`, {
@@ -96,8 +96,7 @@ const updateRole = async (event) => {
     });
     response = await response.json();
     let message = response.message;
-    if(response.success) {
-
+    if (response.success) {
       alertBox(message, "success");
     } else {
       alertBox(message, "warning");
@@ -105,11 +104,28 @@ const updateRole = async (event) => {
     setTimeout(() => {
       window.location.reload();
     }, 3000);
-  } catch(error) {
+  } catch (error) {
     alertBox(error, "danger");
   }
-}
-
+};
+const setLink = (event) => {
+  pageLinks.forEach(async (pageLink) => {
+    let show = showEl.value;
+    let pathname = pageLink.pathname;
+    let page = pageLink.search;
+    let query = `${page}&show=${show}`;
+    let url = `${pathname}${query}`;
+    pageLink.setAttribute("href", url);
+    url = pageLink.href;
+    console.log(url);
+    try {
+      await fetch(url);
+    } catch (error) {
+      console.log("error");
+    }
+  });
+  console.log(pageLinks);
+};
 // Event Listener
 
 deleteBtns.forEach((deleteBtn) => {
@@ -118,6 +134,8 @@ deleteBtns.forEach((deleteBtn) => {
 closeModalBtns.forEach((closeModalBtn) => {
   closeModalBtn.addEventListener("click", closeModal);
 });
-roleSelects.forEach(roleSelect => {
-  roleSelect.addEventListener('change', updateRole);
+roleSelects.forEach((roleSelect) => {
+  roleSelect.addEventListener("change", updateRole);
 });
+
+showEl.addEventListener("change", setLink);

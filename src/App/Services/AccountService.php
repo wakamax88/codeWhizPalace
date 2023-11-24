@@ -21,7 +21,7 @@ class AccountService
         )->count();
 
         if ($emailCount > 0) {
-            throw new ValidationException(['email' => 'Email Exist']);
+            throw new ValidationException(['email' => [0 => 'Email Exist']]);
         }
     }
 
