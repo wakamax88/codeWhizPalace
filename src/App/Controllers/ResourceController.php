@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Controllers;
 
+use App\Config\Show;
 use App\Config\Tabs;
 use App\Services\LinkService;
 use Framework\TemplateEngine;
@@ -32,15 +33,21 @@ class ResourceController
     public function lists()
     {
         $numberRow = $this->linkService->count();
-        $pagination = calculPagination($numberRow, [3, 6, 9], 3);
+        $pagination = calculPagination($numberRow, Show::LINKS, Show::LINKS[0]);
         extract($pagination);
+        $contents = $this->linkService->readAll($limit, $offset);
         echo $this->view->render('/app/listsApp.php', [
             'subTitle' => 'Resource',
             'tabName' => 'Lists',
             'tabs' => Tabs::SECOND_TAB,
-            'contents' => [],
-            'type' => 'link'
-
+            'contents' => $contents,
+            'type' => 'link',
+            'pageActive' => $page,
+            'pageMax' => $pageMax,
+            'offset' => $offset,
+            'numberRow' => $numberRow,
+            'limit' => $limit,
+            'shows' => Show::LINKS
         ]);
     }
 }

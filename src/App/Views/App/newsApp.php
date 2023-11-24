@@ -16,7 +16,7 @@
             </div>
         </div>
         <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
-            <?php if (!empty($contents)) { ?>
+            <?php if (!empty($contents) && (!empty($contents['news']))) { ?>
                 <?php foreach ($contents['news'] as $key => $row) { ?>
                     <?php ($subTitle == 'Forum') && include $this->resolve('partials/_discussionCard.php'); ?>
                     <?php ($subTitle == 'Blog') && include $this->resolve('partials/_postCard.php'); ?>
@@ -33,7 +33,7 @@
             </div>
         </div>
         <div class="row gy-4 row-cols-1 row-cols-md-2 row-cols-xl-3">
-            <?php if (!empty($contents)) { ?>
+            <?php if (!empty($contents) && (!empty($contents['bests']))) { ?>
                 <?php foreach ($contents['bests'] as $key => $row) { ?>
                     <?php ($subTitle == 'Forum') && include $this->resolve('partials/_discussionCard.php'); ?>
                     <?php ($subTitle == 'Blog') && include $this->resolve('partials/_postCard.php'); ?>

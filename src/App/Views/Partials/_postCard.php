@@ -10,7 +10,7 @@
                     <h4 class="card-title"><?= e($row['title'] ?? '') ?></h4>
                 </div>
                 <div class="ms-auto">
-                    <p class="text-muted">Date</p>
+                    <p class="text-muted"></p>
                 </div>
             </div>
 
@@ -19,7 +19,7 @@
                 <img class="rounded-circle flex-shrink-0 me-3 fit-cover" width="50" height="50" src="https://cdn.bootstrapstudio.io/placeholders/1400x800.png" />
                 <div>
                     <p class="fw-bold mb-0"><?= e($row['profilePseudo'] ?? '') ?></p>
-                    <p class="text-muted mb-0">Erat netus</p>
+                    <p class="text-muted mb-0"><?= e($row['date'] ?? '') ?></p>
                 </div>
                 <div class="ms-auto display-6">
                     <button class="btn btn-primary btn-lg <?= $_SESSION['profile']['id'] != null && $_SESSION['profile']['id'] != e($row['profileId'] ?? '') ? '' : 'disabled' ?> like">

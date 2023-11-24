@@ -44,7 +44,7 @@ class PostService
             posts.title,
             posts.thumbnail,
             posts.id,
-            posts.createdAt AS date,
+            DATE_FORMAT(createdAt, '%d/%m/%Y à %Hh%i') AS date,
             CONCAT(SUBSTRING(posts.excerpt, 1, 255), '...') AS excerpt,
             COUNT(v.id) AS voteNb,
             CASE WHEN EXISTS (SELECT 1 FROM votes WHERE post_id = posts.id AND profile_id = :profile_id) THEN 1 ELSE 0 END AS hasVoted
@@ -74,7 +74,7 @@ class PostService
             posts.title,
             posts.thumbnail,
             posts.id,
-            posts.createdAt AS date,
+            DATE_FORMAT(createdAt, '%d/%m/%Y à %Hh%i') AS date,
             CONCAT(SUBSTRING(posts.excerpt, 1, 255), '...') AS excerpt,
             COUNT(v.id) AS voteNb,
             CASE WHEN EXISTS (SELECT 1 FROM votes WHERE post_id = posts.id AND profile_id = :profile_id) THEN 1 ELSE 0 END AS hasVoted
@@ -156,7 +156,7 @@ class PostService
             posts.title,
             posts.thumbnail,
             posts.id,
-            posts.createdAt AS date,
+            DATE_FORMAT(createdAt, '%d/%m/%Y à %Hh%i') AS date,
             CONCAT(SUBSTRING(posts.excerpt, 1, 255), '...') AS excerpt,
             COUNT(v.id) AS voteNb,
             CASE WHEN EXISTS (SELECT 1 FROM votes WHERE post_id = posts.id AND profile_id = :profile_id) THEN 1 ELSE 0 END AS hasVoted

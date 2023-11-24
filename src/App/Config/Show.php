@@ -10,4 +10,5 @@ class Show
     public const CATEGORIES = [5, 10, 15];
     public const POSTS = [3, 6, 9];
     public const DISCCUSSIONS = [3, 6, 9];
+    public const LINKS = [6, 12, 18];
 }

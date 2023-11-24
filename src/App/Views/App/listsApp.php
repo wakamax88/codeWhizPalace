@@ -60,7 +60,7 @@
                                 </li>
                             <?php } else { ?>
                                 <li class="page-item <?= $pageActive == $page ? 'active' : '' ?>">
-                                    <a class="page page-link" href="/app/blog/lists/?page=<?= $page ?>"><?= $page ?></a>
+                                    <a class="page page-link" href="/app/<?= strtolower(e($subTitle ?? '')) ?>/lists/?page=<?= $page ?>"><?= $page ?></a>
                                 </li>
                             <?php } ?>
                         <?php } ?>

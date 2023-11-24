@@ -27,7 +27,7 @@ class SettingService
     {
         $accountId = $_SESSION['account']['id'];
         if (isset($_POST['theme'])) {
-            $this->updateTheme($accountId, (int) $_POST['theme']);
+            $this->updateTheme((int) $accountId, (int) $_POST['theme']);
             $content = $this->getThemeById((int) $_POST['theme']);
             $_SESSION['setting']['theme'] = $content['name'];
         }
