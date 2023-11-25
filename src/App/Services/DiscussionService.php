@@ -15,24 +15,50 @@ class DiscussionService
     public function home()
     {
         $news = $this->db->query(
-            "SELECT d.id, d.title, p.firstname AS profilePseudo, p.id, c.name AS category, MAX(cm.content) AS commentContent, COUNT(cm.id) AS commentNb
+            "SELECT 
+            d.id,
+            d.title,
+            d.lastComment_id AS lastCommentId,
+            cm.content AS commentContent,
+            p.firstname AS profilePseudo,
+            p.id AS profileId,
+            c.name AS category,
+            dcm.commentCount,
+            pcm.firstname AS commentProfilePseudo,
+            pcm.id AS commentProfileId,
+            DATE_FORMAT(cm.createdAt, '%d/%m/%Y à %Hh%i') AS commentDate,
+            DATE_FORMAT(d.createdAt, '%d/%m/%Y à %Hh%i') AS date
             FROM discussions d
-            JOIN comments cm ON d.id = cm.discussion_id
             JOIN profiles p ON d.profile_id = p.id
             JOIN categories c ON d.category_id = c.id
-            GROUP BY d.id, d.title, p.firstname, p.id, c.name
-            ORDER BY d.created_at DESC
+            LEFT JOIN discussion_comment_counts dcm ON d.id = dcm.discussion_id
+            LEFT JOIN comments cm ON d.lastComment_id = cm.id
+            LEFT JOIN profiles pcm ON cm.profile_id = pcm.id
+            ORDER BY d.createdAt DESC
             LIMIT 3;"
         )->findAll();
 
         $bests = $this->db->query(
-            "SELECT d.id, d.title, p.firstname AS discussionProfileName, p.id, c.name AS category, MAX(cm.content) AS lastComment, COUNT(cm.id) AS nbComment
+            "SELECT 
+            d.id,
+            d.title,
+            d.lastComment_id AS lastCommentId,
+            cm.content AS commentContent,
+            p.firstname AS profilePseudo,
+            p.id AS profileId,
+            c.name AS category,
+            dcm.commentCount,
+            pcm.firstname AS commentProfilePseudo,
+            pcm.id AS commentProfileId,
+            DATE_FORMAT(cm.createdAt, '%d/%m/%Y à %Hh%i') AS commentDate,
+            DATE_FORMAT(d.createdAt, '%d/%m/%Y à %Hh%i') AS date
             FROM discussions d
-            JOIN comments cm ON d.id = cm.discussion_id
             JOIN profiles p ON d.profile_id = p.id
             JOIN categories c ON d.category_id = c.id
-            GROUP BY d.id, d.title, p.firstname, p.id, c.name
-            ORDER BY nbComment DESC
+            LEFT JOIN discussion_comment_counts dcm ON d.id = dcm.discussion_id
+            LEFT JOIN comments cm ON d.lastComment_id = cm.id
+            LEFT JOIN profiles pcm ON cm.profile_id = pcm.id
+            ORDER BY commentCount DESC
             LIMIT 3;"
         )->findAll();
 

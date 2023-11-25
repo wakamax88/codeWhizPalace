@@ -26,7 +26,7 @@
                 </label>
             </div>
             <div class="col-auto">
-                <button id="add" class="btn btn-primary <?= $_SESSION['profile']['id'] != null ? '' : 'disabled' ?>" type="button"><i class="fa-solid fa-plus"></i></button>
+                <button class="btn btn-primary <?= $_SESSION['profile']['id'] != null ? '' : 'disabled' ?> cwp-add" type="button"><i class="fa-solid fa-plus"></i></button>
             </div>
         </div>
         <!-- Body -->

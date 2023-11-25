@@ -8,3 +8,7 @@ body {
   backdrop-filter: brightness(30%);
   font-family: "Open Sans", sans-serif;
 }
+.cwp-dropdown-option {
+  top: 1rem;
+  right: 1rem;
+}

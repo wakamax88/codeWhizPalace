@@ -8,9 +8,12 @@ namespace App\Services;
 class SanitizeService
 {
     public const FILTERS = [
-        'string' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+        'string' => [
+            'filter' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'flags' => FILTER_FLAG_NO_ENCODE_QUOTES
+        ],
         'string[]' => [
-            'filter' => FILTER_SANITIZE_FULL_SPECIAL_CHARS,
+            'filter' => FILTER_SANITIZE_SPECIAL_CHARS,
             'flags' => FILTER_REQUIRE_ARRAY
         ],
         'email' => FILTER_SANITIZE_EMAIL,
@@ -31,6 +34,10 @@ class SanitizeService
             'flags' => FILTER_REQUIRE_ARRAY
         ],
         'url' => FILTER_SANITIZE_URL,
+        'html' => [
+            'filter' => FILTER_SANITIZE_SPECIAL_CHARS,
+            'flags' => FILTER_FLAG_ENCODE_LOW
+        ]
     ];
     public function array_trim(array $items): array
     {
@@ -52,6 +59,7 @@ class SanitizeService
     ): array {
         if ($fields) {
             $options = array_map(fn ($field) => $filters[$field], $fields);
+            var_dump($options);
             $data = filter_var_array($inputs, $options);
         } else {
             $data = filter_var_array($inputs, $default_filter);

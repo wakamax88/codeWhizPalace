@@ -10,7 +10,7 @@ class Sanitize
         'title' => 'string',
         'alt' => 'string',
         'excerpt' => 'string',
-        'content' => 'string',
+        'content' => 'url',
         'categoryId' => 'int'
     ];
 

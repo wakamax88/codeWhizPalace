@@ -65,7 +65,8 @@ class BlogController
 
     public function update($parameters)
     {
-        $formData = $this->sanitizeService->sanitize($_POST, Sanitize::POST);
+        //$formData = $this->sanitizeService->sanitize($_POST, Sanitize::POST);
+        $formData = $_POST;
         $this->validatorService->validatePost($formData);
         $post_id = (int) filter_var($parameters['id'], FILTER_SANITIZE_NUMBER_INT);
         $profile_id = $_SESSION['profile']['id'];
@@ -87,7 +88,8 @@ class BlogController
 
     public function create()
     {
-        $formData = $this->sanitizeService->sanitize($_POST, Sanitize::POST);
+        //$formData = $this->sanitizeService->sanitize($_POST, Sanitize::POST);
+        $formData = $_POST;
         $this->validatorService->validatePost($formData);
         $imageNameNew = '';
         //TODO extract function Imgage

@@ -2,20 +2,12 @@
 
 let likeBtns = document.querySelectorAll(".like");
 let cards = document.querySelectorAll(".card");
-let modalReadEl = document.getElementById("modal-read");
-let closeModalBtns = document.querySelectorAll(".cwp-close-modal");
+
+
 let actionYes = document.getElementById("actionYes");
-let optionBtns = document.querySelectorAll(".cwp-option-btn");
-let editOptionLinks = document.querySelectorAll(".cwp-edit-option-link");
-let deleteOptionLinks = document.querySelectorAll(".cwp-delete-option-link");
 
-let modalDeleteEl = document.getElementById("modal-delete");
-let modalEditEl = document.getElementById("modal-edit");
-
-let addBtn = document.getElementById("add");
 let actionBtn = document.getElementById("action");
-let pageLinks = document.querySelectorAll(".page");
-let showEl = document.getElementById("show");
+
 let contentSendEl = document.querySelector("#content");
 let titleEl = document.querySelector("#title");
 let thumbnailEl = document.querySelector("#thumbnail");
@@ -38,28 +30,7 @@ quill.on("text-change", function () {
   contentSendEl.value = quill.root.innerHTML;
 });
 
-const getPostId = (event) => {
-  let cardEl = event.currentTarget.closest(".card");
-  return cardEl.id;
-};
 
-function toCamelCase(inputString) {
-  let words = inputString.split(" ");
-  console.log(words);
-  for (let i = 0; i < words.length; i++) {
-    words[i] = words[i].charAt(0).toLowerCase() + words[i].slice(1);
-    if (i > 0) {
-      words[i] = words[i].charAt(0).toUpperCase() + words[i].slice(1);
-    }
-  }
-  let camelCaseString = words.join("");
-  return camelCaseString;
-}
-
-// Exemple d'utilisation
-let inputString = "Web Developement";
-let result = toCamelCase(inputString);
-console.log(result); // Affiche "webDevelopement"
 
 const like = async (event) => {
   event.stopImmediatePropagation();
@@ -77,7 +48,7 @@ const like = async (event) => {
       body: JSON.stringify(data),
     });
     response = await response.json();
-    if (response.success) {
+    if(response.success) {
       const message = response.message;
       alertBox(message, "success");
     } else {
@@ -86,97 +57,55 @@ const like = async (event) => {
     setTimeout(() => {
       window.location.reload();
     }, 3000);
-  } catch (error) {
+  } catch(error) {
     alertBox(error, "danger");
   }
 };
 
-const getPostById = async (post_id) => {
-  try {
-    const response = await fetch(`/app/blog/posts/${post_id}`);
-    let post = await response.json();
-    return post;
-  } catch (error) {
-    console.log("🧨", error);
-  }
-};
 
-const getCategories = async () => {
-  try {
-    let response = await fetch(`/app/common/categories`);
-    let categories = await response.json();
-    return categories;
-  } catch (error) {
-    console.log("🧨", error);
-  }
-};
+
+
 
 const openReadModal = async (event) => {
-  let post_id = getPostId(event);
-  let post = await getPostById(post_id);
-
+  let post_id = getId(event);
+  let post = await getById(post_id, 'posts', 'blog');
   let contentModalEl = document.querySelector(".modal-body");
-  let exercptModalEl = document.querySelector("exercpt");
   let titleModalEl = document.querySelector(".modal-title");
-  let imageEl = document.createElement("img");
-  //imageEl.append(contentModalEl);
-  let categoryName = toCamelCase(post.categoryName);
-  imageEl.src = `/assets/img/${categoryName}/${post.thumbnail}`;
-  console.log(imageEl);
   titleModalEl.textContent = post.title;
   contentModalEl.innerHTML = post.content;
-  console.log(post);
   modalReadEl.classList.toggle("show");
 };
 
-const closeModal = () => {
+const clearData = () => {
   titleEl.value = "";
-  alt.value = "";
+  altEl.value = "";
   contentSendEl.value = "";
   exercptEl.value = "";
   quill.setText("");
-  modalReadEl.classList.remove("show");
-  modalDeleteEl.classList.remove("show");
-  modalEditEl.classList.remove("show");
-};
+}
 
-const openOption = (event) => {
-  event.stopImmediatePropagation();
-};
+
+
 
 const openDeleteModal = (event) => {
   event.stopImmediatePropagation();
-  post_id = getPostId(event);
+  post_id = getId(event);
   titleModalDeleteEl.textContent = "Delete Post";
   contentModalDeleteEl.textContent =
     "Veuillez confirmer pour supprimer cet article";
-  actionYes.addEventListener("click", async () => {
+  actionYes.addEventListener("click", () => {
     const data = {
       token: document.querySelector(".token").value,
     };
-    try {
-      let response = await fetch(`/app/blog/posts/delete/${post_id}`, {
-        method: "DELETE",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      response = await response.json();
-      closeModal();
-      if (response.success) {
-        let message = response.message;
-        alertBox(message, "success");
-      } else {
-        let message = response.message;
-        alertBox(message, "warning");
-      }
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
-    } catch (error) {
-      alertBox(error, "danger");
-    }
+    const option = {
+      method: "DELETE",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    const url = `/app/blog/posts/delete/${post_id}`;
+    postData(url, option);
   });
   modalDeleteEl.classList.toggle("show");
 };
@@ -195,26 +124,12 @@ const openCreateModal = async (event) => {
 
   actionBtn.addEventListener("click", async () => {
     let formData = getFormPost();
-    try {
-      let response = await fetch(`/app/blog/posts`, {
-        method: "POST",
-        body: formData,
-      });
-      response = await response.json();
-      closeModal();
-      if (response.success) {
-        let message = response.message;
-        alertBox(message, "success");
-      } else {
-        let message = response.message;
-        alertBox(message, "warning");
-      }
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
-    } catch (error) {
-      alertBox(error, "danger");
-    }
+    let url = `/app/blog/posts`;
+    let option = {
+      method: "POST",
+      body: formData,
+    };
+    postData(url, option);
   });
   modalEditEl.classList.toggle("show");
 };
@@ -224,14 +139,12 @@ const openEditModal = async (event) => {
   actionBtn.value = "update";
   actionBtn.textContent = "Update";
   titleModalEditEl.textContent = "Edit Post";
-
-  post_id = getPostId(event);
-
-  let post = await getPostById(post_id);
+  post_id = getId(event);
+  let post = await getById(post_id, 'posts', 'blog');
   let categories = await getCategories();
 
   categories.forEach((categories, key) => {
-    if (categories["id"] == post.category_id) {
+    if(categories["id"] == post.category_id) {
       categoryEl[key] = new Option(
         categories["name"],
         categories["id"],
@@ -242,15 +155,17 @@ const openEditModal = async (event) => {
       categoryEl[key] = new Option(categories["name"], categories["id"]);
     }
   });
+
   titleEl.value = post.title;
   exercptEl.value = post.excerpt;
   content.value = post.content;
+  contentSendEl.value = post.content;
   altEl.value = post.alt;
 
   const delta = quill.clipboard.convert(post.content);
   quill.setContents(delta, "silent");
 
-  actionBtn.addEventListener("click", async () => {
+  actionBtn.addEventListener("click", () => {
     const data = {
       token: document.querySelector(".token").value,
       title: titleEl.value,
@@ -259,32 +174,20 @@ const openEditModal = async (event) => {
       excerpt: exercptEl.value,
       categoryId: categoryEl.value,
     };
-    try {
-      let response = await fetch(`/app/blog/posts/update/${post_id}`, {
-        method: "PATCH",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      });
-      response = await response.json();
-      closeModal();
-      if (response.success) {
-        alertBox(response.message, "success");
-      } else {
-        alertBox(response.message, "warning");
-      }
-      setTimeout(() => {
-        window.location.reload();
-      }, 3000);
-    } catch (error) {
-      console.log(error);
-      alertBox(error, "danger");
-    }
+    const option = {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(data),
+    };
+    let url = `/app/blog/posts/update/${post_id}`;
+    postData(url, option);
   });
 
   modalEditEl.classList.toggle("show");
 };
+
 const getFormPost = () => {
   let token = document.querySelector(".token");
   let title = titleEl.value;
@@ -301,69 +204,20 @@ const getFormPost = () => {
   formData.append("alt", alt);
   formData.append("content", content);
   formData.append("categoryId", categoryId);
-  console.log(formData);
   return formData;
 };
 
-const alertBox = (message, type) => {
-  const alertDiv = document.createElement("div");
-  alertDiv.className = `alert alert-${type} alert-dismissible d-flex align-items-center`;
-  alertDiv.setAttribute("role", "alert");
-  let iconClass = "";
-  if (type === "success") {
-    iconClass = "fa-circle-check";
-  } else if (type === "danger") {
-    iconClass = "fa-skull-crossbones";
-  } else if (type === "warning") {
-    iconClass = "fa-triangle-exclamation";
-  } else if (type === "info") {
-    iconClass = "fa-circle-info";
-  }
-  alertDiv.innerHTML = `
-        <span class="me-3"><i class="fa-solid ${iconClass}"></i></span>
-        <span class="text-uppercase">${message}</span>
-        <button class="btn-close" type="button" aria-label="Close" data-bs-dismiss="alert"></button>
-      `;
-  document.querySelector(".col").appendChild(alertDiv);
-};
-
-const setLink = (event) => {
-  pageLinks.forEach((pageLink) => {
-    let show = showEl.value;
-    let pathname = pageLink.pathname;
-    let page = pageLink.search;
-    let query = `${page}&show=${show}`;
-    let url = `${pathname}${query}`;
-    pageLink.setAttribute("href", url);
-  });
-  console.log(pageLinks);
-};
 
 // Event Listener
 cards.forEach((card) => {
   card.addEventListener("click", openReadModal);
 });
 
-closeModalBtns.forEach((closeModalBtn) => {
-  closeModalBtn.addEventListener("click", closeModal);
-});
-
-optionBtns.forEach((optionBtn) => {
-  optionBtn.addEventListener("click", openOption);
-});
-
-editOptionLinks.forEach((editOptionLink) => {
-  editOptionLink.addEventListener("click", openEditModal);
-});
-
-deleteOptionLinks.forEach((deleteOptionLink) => {
-  deleteOptionLink.addEventListener("click", openDeleteModal);
-});
-
 likeBtns.forEach((likeBtn) => {
   likeBtn.addEventListener("click", like);
 });
 
-addBtn.addEventListener("click", openCreateModal);
 
-showEl.addEventListener("change", setLink);
+
+
+
