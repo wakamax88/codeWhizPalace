@@ -18,15 +18,16 @@ class PostService
     {
         $profile_id = $_SESSION['profile']['id'];
         $this->db->query(
-            "INSERT INTO posts(title, content, excerpt, profile_id, category_id, thumbnail)
-            VALUES(:title, :content, :excerpt, :profile_id, :category_id, :thumbnail)",
+            "INSERT INTO posts(title, content, excerpt,alt, profile_id, category_id, thumbnail)
+            VALUES(:title, :content, :excerpt,:alt, :profile_id, :category_id, :thumbnail)",
             [
                 'title' => $formData['title'],
                 'content' => $formData['content'],
                 'excerpt' => $formData['excerpt'],
                 'profile_id' => $profile_id,
                 'category_id' => $formData['categoryId'],
-                'thumbnail' => $imageName
+                'thumbnail' => $imageName,
+                'alt' => $formData['alt']
             ]
         );
         return $this->db->id();
@@ -180,7 +181,7 @@ class PostService
 
     public function count()
     {
-        $numberRow = $this->db->query("SELECT COUNT(*) FROM posts")->count();
+        $numberRow = $this->db->query("SELECT COUNT(*) FROM posts;")->count();
         return $numberRow;
     }
 

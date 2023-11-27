@@ -57,6 +57,14 @@ class ValidatorService
             'birthday' => ['dateFormat:Y-m-d']
         ]);
     }
+    public function validateDiscussion(array $formData)
+    {
+        $this->validator->validate($formData, [
+            'title' => ['required'],
+            'content' => ['required'],
+            'categoryId' => ['required'],
+        ]);
+    }
     public function validatePost(array $formData)
     {
         $this->validator->validate($formData, [

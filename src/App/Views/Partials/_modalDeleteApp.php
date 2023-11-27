@@ -2,7 +2,7 @@
     <div class="modal-dialog modal-lg modal-dialog-scrollable" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 id="titleModalDelete" class="modal-title"></h4>
+                <h4 class="modal-title"></h4>
                 <button class="btn-close cwp-close-modal" type="button"></button>
             </div>
             <div class="modal-body">
@@ -10,7 +10,7 @@
             </div>
             <div class="modal-footer">
                 <button class="btn btn-light cwp-close-modal" type="button">No</button>
-                <button id="actionYes" class="btn btn-primary" type="button">Yes</button>
+                <button class="btn btn-primary cwp-action" type="button">Yes</button>
             </div>
         </div>
     </div>

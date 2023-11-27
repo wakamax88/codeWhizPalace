@@ -12,8 +12,10 @@
         </div>
 
     </div>
-    <div>
-        <select class="form-select" aria-label="Default select example" id="category" require>
+    <!-- Category -->
+    <div class="text-start mb-3">
+        <label class="form-label text-light" for="category">Category</label>
+        <select class="form-select cwp-category" aria-label="Default select example" id="category" require>
         </select>
     </div>
     <!-- Thumbnail -->

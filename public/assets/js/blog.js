@@ -4,145 +4,86 @@ let likeBtns = document.querySelectorAll(".like");
 let cards = document.querySelectorAll(".card");
 
 
-let actionYes = document.getElementById("actionYes");
+const contentEl = document.getElementById("content");
+const titleEl = document.getElementById("title");
+const thumbnailEl = document.getElementById("thumbnail");
+const altEl = document.getElementById("alt");
+const exercptEl = document.getElementById("exercpt");
+const categoryEl = document.getElementById("category");
 
-let actionBtn = document.getElementById("action");
-
-let contentSendEl = document.querySelector("#content");
-let titleEl = document.querySelector("#title");
-let thumbnailEl = document.querySelector("#thumbnail");
-let altEl = document.querySelector("#alt");
-let exercptEl = document.querySelector("#exercpt");
-let categoryEl = document.getElementById("category");
-let titleModalEditEl = document.querySelector("#titleModalEdit");
-let contentModalDeleteEl = document.querySelector("#modal-delete .modal-body");
-let titleModalDeleteEl = document.getElementById("titleModalDelete");
 let post_id = "";
-var options = {
+
+/* Editor Quill */
+const options = {
   debug: "info",
   placeholder: "Compose an epic...",
   readOnly: false,
   theme: "snow",
 };
 const quill = new Quill("#contentVisual", options);
-
 quill.on("text-change", function () {
-  contentSendEl.value = quill.root.innerHTML;
+  contentEl.value = quill.root.innerHTML;
 });
 
-
-
-const like = async (event) => {
+const like = (event) => {
   event.stopImmediatePropagation();
-  console.log("like");
-  let post_id = getPostId(event);
+  post_id = getId(event);
   const data = {
     token: document.querySelector(".token").value,
   };
-  try {
-    let response = await fetch(`/app/blog/posts/${post_id}/likes`, {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    });
-    response = await response.json();
-    if(response.success) {
-      const message = response.message;
-      alertBox(message, "success");
-    } else {
-      alertBox(message, "warning");
-    }
-    setTimeout(() => {
-      window.location.reload();
-    }, 3000);
-  } catch(error) {
-    alertBox(error, "danger");
-  }
+  const option = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
+  const url = `/app/blog/posts/${post_id}/likes`;
+  postData(url, option);
 };
 
-
-
-
-
 const openReadModal = async (event) => {
-  let post_id = getId(event);
+  post_id = getId(event);
   let post = await getById(post_id, 'posts', 'blog');
-  let contentModalEl = document.querySelector(".modal-body");
-  let titleModalEl = document.querySelector(".modal-title");
-  titleModalEl.textContent = post.title;
-  contentModalEl.innerHTML = post.content;
+  titleModalReadEl.textContent = post.title;
+  bodyModalReadEl.innerHTML = post.content;
   modalReadEl.classList.toggle("show");
 };
 
 const clearData = () => {
   titleEl.value = "";
   altEl.value = "";
-  contentSendEl.value = "";
+  contentEl.value = "";
   exercptEl.value = "";
   quill.setText("");
 }
-
-
-
 
 const openDeleteModal = (event) => {
   event.stopImmediatePropagation();
   post_id = getId(event);
   titleModalDeleteEl.textContent = "Delete Post";
-  contentModalDeleteEl.textContent =
-    "Veuillez confirmer pour supprimer cet article";
-  actionYes.addEventListener("click", () => {
-    const data = {
-      token: document.querySelector(".token").value,
-    };
-    const option = {
-      method: "DELETE",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-    const url = `/app/blog/posts/delete/${post_id}`;
-    postData(url, option);
-  });
-  modalDeleteEl.classList.toggle("show");
+  bodyModalDeleteEl.textContent =
+    "Veuillez confirmer pour supprimer";
+  modalDeleteEl.classList.toggle("show")
 };
 
 const openCreateModal = async (event) => {
   event.stopImmediatePropagation();
-  actionBtn.value = "save";
-  actionBtn.textContent = "Save";
+  actionModalEditBtn.value = "create";
   titleModalEditEl.textContent = "Create Post";
-
-  let categories = await getCategories();
-
+  const categories = await getCategories();
   categories.forEach((categories, key) => {
     categoryEl[key] = new Option(categories["name"], categories["id"]);
-  });
-
-  actionBtn.addEventListener("click", async () => {
-    let formData = getFormPost();
-    let url = `/app/blog/posts`;
-    let option = {
-      method: "POST",
-      body: formData,
-    };
-    postData(url, option);
   });
   modalEditEl.classList.toggle("show");
 };
 
 const openEditModal = async (event) => {
+  actionModalEditBtn.value = "update";
   event.stopImmediatePropagation();
-  actionBtn.value = "update";
-  actionBtn.textContent = "Update";
-  titleModalEditEl.textContent = "Edit Post";
   post_id = getId(event);
-  let post = await getById(post_id, 'posts', 'blog');
-  let categories = await getCategories();
-
+  const post = await getById(post_id, 'posts', 'blog');
+  const categories = await getCategories();
   categories.forEach((categories, key) => {
     if(categories["id"] == post.category_id) {
       categoryEl[key] = new Option(
@@ -155,47 +96,24 @@ const openEditModal = async (event) => {
       categoryEl[key] = new Option(categories["name"], categories["id"]);
     }
   });
-
+  titleModalEditEl.textContent = "Edit Post";
   titleEl.value = post.title;
   exercptEl.value = post.excerpt;
-  content.value = post.content;
-  contentSendEl.value = post.content;
+  contentEl.value = post.content;
   altEl.value = post.alt;
-
   const delta = quill.clipboard.convert(post.content);
   quill.setContents(delta, "silent");
-
-  actionBtn.addEventListener("click", () => {
-    const data = {
-      token: document.querySelector(".token").value,
-      title: titleEl.value,
-      alt: altEl.value,
-      content: contentSendEl.value,
-      excerpt: exercptEl.value,
-      categoryId: categoryEl.value,
-    };
-    const option = {
-      method: "PATCH",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    };
-    let url = `/app/blog/posts/update/${post_id}`;
-    postData(url, option);
-  });
-
   modalEditEl.classList.toggle("show");
 };
 
 const getFormPost = () => {
   let token = document.querySelector(".token");
-  let title = titleEl.value;
-  let alt = altEl.value;
-  let thumbnail = thumbnailEl.files[0];
-  let content = contentSendEl.value;
-  let excerpt = exercptEl.value;
-  let categoryId = categoryEl.value;
+  const title = titleEl.value;
+  const alt = altEl.value;
+  const thumbnail = thumbnailEl.files[0];
+  const content = contentEl.value;
+  const excerpt = exercptEl.value;
+  const categoryId = categoryEl.value;
   const formData = new FormData();
   formData.append("thumbnail", thumbnail);
   formData.append("title", title);
@@ -217,7 +135,53 @@ likeBtns.forEach((likeBtn) => {
   likeBtn.addEventListener("click", like);
 });
 
+// CRUD POST
+const deleteData = () => {
+  const data = {
+    token: document.querySelector(".token").value,
+  };
+  const option = {
+    method: "DELETE",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
+  const url = `/app/blog/posts/delete/${post_id}`;
+  postData(url, option);
+}
 
+const updateData = () => {
+  const data = {
+    token: document.querySelector(".token").value,
+    title: titleEl.value,
+    alt: altEl.value,
+    content: contentEl.value,
+    excerpt: exercptEl.value,
+    categoryId: categoryEl.value,
+  };
+  const option = {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
+  const url = `/app/blog/posts/update/${post_id}`;
+  postData(url, option);
+}
+
+const createData = () => {
+  console.log('create');
+  const formData = getFormPost();
+  console.log(formData);
+  const url = `/app/blog/posts`;
+  const option = {
+    method: "POST",
+    body: formData,
+  };
+  postData(url, option);
+}
 
 
 

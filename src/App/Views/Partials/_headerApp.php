@@ -68,7 +68,7 @@
 
                     foreach ($mTabs as $key => $mTab) { ?>
                         <li class="nav-item">
-                            <a class="nav-link <?= $subTitle == $mTab ? 'active link-light' : 'link-body-emphasis' ?>" href="/app/<?= strtolower($mTab) ?>">
+                            <a class="nav-link <?= $subTitle == $mTab ? 'active link-light' : 'link-body-emphasis' ?> <?= ($mTab == "Admin") && ($_SESSION['account']['roleId'] != 1) ? 'disabled' : ''  ?>" href="/app/<?= strtolower($mTab) ?>">
                                 <div class="row">
                                     <div class="col-2 d-flex justify-content-center align-items-center"><i class="<?= Tabs::ICON_TAB[$key] ?>"></i></div>
                                     <div class="col-10"><?= $mTab ?></div>

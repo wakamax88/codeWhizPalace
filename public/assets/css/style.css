@@ -12,3 +12,22 @@ body {
   top: 1rem;
   right: 1rem;
 }
+.modal {
+  display: none;
+}
+.show {
+  display: block;
+}
+
+.card .dropdown {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
+}
+
+textarea {
+  resize: none;
+}
+.hidden {
+  display: none;
+}

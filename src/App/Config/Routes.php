@@ -38,9 +38,16 @@ function registerRoutes(App $app)
     $app->get('/app/blog/news', [BlogController::class, 'home']);
     $app->get('/app/blog/lists/{?}', [BlogController::class, 'lists']);
     // FORUM
+    $app->post('/app/forum/discussions/{id}/create', [ForumController::class, 'createComment'],  [AuthnMiddleware::class]);
     $app->get('/app/forum', [ForumController::class, 'home']);
     $app->get('/app/forum/news', [ForumController::class, 'home']);
-    $app->get('/app/forum/lists', [ForumController::class, 'lists']);
+    $app->get('/app/forum/lists/{?}', [ForumController::class, 'lists']);
+    $app->get('/app/forum/discussions/{id}', [ForumController::class, 'read'],  [AuthnMiddleware::class]);
+    $app->patch('/app/forum/discussions/{id}/update', [ForumController::class, 'update'], [AuthnMiddleware::class]);
+    $app->delete('/app/forum/discussions/{id}/delete', [ForumController::class, 'delete'], [AuthnMiddleware::class]);
+    $app->post('/app/forum/discussions', [ForumController::class, 'create'], [AuthnMiddleware::class]);
+    $app->get('/app/forum/discussions/{id}/comments', [ForumController::class, 'getAllComments'],  [AuthnMiddleware::class]);
+
     // RESOURCE
     $app->get('/app/resource', [ResourceController::class, 'home']);
     $app->get('/app/resource/news', [ResourceController::class, 'home']);

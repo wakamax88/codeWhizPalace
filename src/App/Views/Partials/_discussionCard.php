@@ -1,6 +1,6 @@
 <!-- Model Discussion Card Blog  -->
 <div class="col">
-    <div class="card h-100" id="<?= $tabTitle ?? '' ?>_<?= e($row['id'] ?? '') ?>">
+    <div class="card h-100" id="<?= strtolower($type) ?>_<?= e($row['id'] ?? '') ?>">
         <div class="card-header d-flex">
             <div>
                 <p class="text-primary card-text mb-0"><?= e($row['category'] ?? '') ?></p>
@@ -21,7 +21,7 @@
                 </div>
                 <div class="card-body">
                     <div>
-                        <p class="card-text <?= e($row['commentDate'] == null ? 'text-light' : '') ?>"><?= e($row['commentContent'] ?? 'Pas encore de commentaire') ?></p>
+                        <p class="card-text <?= e($row['commentDate'] == null ? 'text-light' : '') ?>"><?= e($row['commentContent'] ?? 'No comments') ?></p>
                     </div>
                 </div>
             </div>
@@ -36,7 +36,7 @@
             </div>
 
             <div class="ms-auto">
-                <button class="btn btn-primary">
+                <button class="btn btn-primary cwp-comment">
                     <span class="me-2"><?= e($row['commentCount'] ?? '') ?></span>
                     <i class="fa-regular fa-comment"></i>
                 </button>

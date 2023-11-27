@@ -6,11 +6,11 @@
                 <button class="btn-close cwp-close-modal" type="button"></button>
             </div>
             <div class="modal-body">
-
+                <?php ($subTitle == 'Forum') && include $this->resolve('partials/_formComment.php'); ?>
             </div>
             <div class="modal-footer">
                 <button class="btn btn-light cwp-close-modal" type="button">Close</button>
-                <button class="btn btn-primary add hidden" type="button">Save</button>
+                <button class="btn btn-primary <?= $subTitle == 'Forum' ? '' : 'hidden' ?>  cwp-action" type="button">Send</button>
             </div>
         </div>
     </div>

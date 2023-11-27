@@ -6,11 +6,12 @@
                 <button class="btn-close cwp-close-modal" type="button"></button>
             </div>
             <div class="modal-body">
-                <?php include $this->resolve('partials/_formPost.php'); ?>
+                <?php ($subTitle == 'Blog') && include $this->resolve('partials/_formPost.php'); ?>
+                <?php ($subTitle == 'Forum') && include $this->resolve('partials/_formDiscussion.php'); ?>
             </div>
             <div class="modal-footer">
-                <button class="btn btn-light cwp-close-modal" type="button">Cancel</button>
-                <button id="action" class="btn btn-primary cwp-valid" type="button">Save</button>
+                <button class="btn btn-light cwp-close-modal" type="button">Annuler</button>
+                <button id="action" class="btn btn-primary cwp-action" type="button">Sauvegarder</button>
             </div>
         </div>
     </div>

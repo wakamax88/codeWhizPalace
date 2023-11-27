@@ -8,10 +8,23 @@ const deleteOptionLinks = document.querySelectorAll(".cwp-delete-option-link");
 const pageLinks = document.querySelectorAll(".page");
 const showEl = document.getElementById("show");
 
+const commentBtns = document.querySelectorAll(".cwp-comment");
 
+/*  Modal Read */
 const modalReadEl = document.getElementById("modal-read");
+const titleModalReadEl = document.querySelector("#modal-read .modal-title");
+const actionModalReadBtn = document.querySelector("#modal-read .cwp-action");
+const bodyModalReadEl = document.querySelector("#modal-read .modal-body");
+/* Modal Delete */
 const modalDeleteEl = document.getElementById("modal-delete");
-let modalEditEl = document.getElementById("modal-edit");
+const titleModalDeleteEl = document.querySelector("#modal-delete .modal-title");
+const bodyModalDeleteEl = document.querySelector("#modal-delete .modal-body");
+const actionModalDeleteBtn = document.querySelector("#modal-delete .cwp-action");
+/* Modal Edit */
+const modalEditEl = document.getElementById("modal-edit");
+const titleModalEditEl = document.querySelector("#modal-edit .modal-title");
+const bodyModalEditEl = document.querySelector("#modal-edit .modal-body");
+const actionModalEditBtn = document.querySelector("#modal-edit .cwp-action");
 
 // Function Commun
 const toCamelCase = (inputString) => {
@@ -123,6 +136,10 @@ editOptionLinks.forEach((editOptionLink) => {
 deleteOptionLinks.forEach((deleteOptionLink) => {
     deleteOptionLink.addEventListener("click", openDeleteModal);
 });
+
+commentBtns.forEach(commentBtn => {
+    commentBtn.addEventListener('click', openReadModal)
+});
 // Modal
 
 // Option Menu
@@ -147,7 +164,16 @@ const setLink = (event) => {
     });
     console.log(pageLinks);
 };
-
 showEl.addEventListener("change", setLink);
 //Pagination
 
+actionModalDeleteBtn.addEventListener('click', deleteData);
+actionModalEditBtn.addEventListener('click', (event) => {
+    if(actionModalEditBtn.value == "update") {
+        updateData();
+    } else if(actionModalEditBtn.value == "create") {
+        createData();
+    }
+});
+
+actionModalReadBtn.addEventListener('click', sendData);
