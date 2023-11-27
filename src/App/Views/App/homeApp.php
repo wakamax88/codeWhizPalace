@@ -1,7 +1,7 @@
 <?php include $this->resolve('partials/_headerApp.php'); ?>
 <!-- Start Main Content Area -->
 <section class="container-fluid">
-
+    <?php var_dump($_ENV) ?>
     <div class="row min-vh-100 align-items-center justify-content-center">
         <div class="col-6 text-center">
             <p class="fs-5 text-light">Bienvenue sur l'application</p>

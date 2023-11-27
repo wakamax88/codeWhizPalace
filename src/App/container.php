@@ -10,7 +10,7 @@ return [
     TemplateEngine::class => fn () => new TemplateEngine(Paths::VIEW),
     ValidatorService::class => fn () => new ValidatorService(),
     SanitizeService::class => fn () => new SanitizeService(),
-    Database::class => fn () => new Database('mysql', ['host' => 'localhost', 'port' => 3306, 'dbname' => 'code_whiz_palace'], 'root', ''),
+    Database::class => fn () => new Database('mysql', ['host' => $_ENV['DB_HOST'], 'port' => $_ENV['DB_PORT'], 'dbname' => $_ENV['DB_NAME']], $_ENV['DB_USERNAME'], $_ENV['DB_PASSWORD']),
     AccountService::class => function (Container $container) {
         $db = $container->get(Database::class);
         return new AccountService($db);
