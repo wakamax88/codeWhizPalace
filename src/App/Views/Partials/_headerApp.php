@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/png" sizes="16x16" href="/assets/img/site/infinity-16.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="assets/img/site/infinity-32.png">
     <title><?= "{$title} - App - {$subTitle}" ?></title>
 
     <link rel="stylesheet" href="/assets/bootstrap/css/bootstrap.min.css">

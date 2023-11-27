@@ -14,6 +14,7 @@ function registerRoutes(App $app)
     $app->get('/', [PageController::class, 'home']);
     $app->get('/docs', [PageController::class, 'docs']);
     $app->get('/contact', [PageController::class, 'contactView']);
+    $app->get('/feature', [PageController::class, 'feature']);
     $app->post('/contact', [PageController::class, 'contact']);
     $app->get('/signup', [AuthController::class, 'signupView']);
     $app->post('/signup', [AuthController::class, 'signup']);

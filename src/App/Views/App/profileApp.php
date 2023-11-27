@@ -19,7 +19,7 @@
                             <div class="mt-3">
                                 <h4><span><?= e($profile['firstname'] ?? '') ?></span> <span><?= e($profile['lastname'] ?? '') ?></span></h4>
                                 <p class="text-secondary mb-1">Full Stack Developer</p>
-                                <p class="text-muted font-size-sm">Bay Area, San Francisco, CA</p><button class="btn btn-primary">Follow</button><button class="btn btn-outline-primary">Message</button>
+                                <button class="btn btn-primary">Follow</button><button class="btn btn-outline-primary">Message</button>
                             </div>
                         </div>
                     </div>
@@ -149,34 +149,7 @@
                                 <h6 class="mb-0">Email</h6>
                             </div>
                             <div class="col-sm-9 text-secondary">
-                                fip@jukmuh.al
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Phone</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                (239) 816-9029
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Mobile</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                (320) 380-4539
-                            </div>
-                        </div>
-                        <hr />
-                        <div class="row">
-                            <div class="col-sm-3">
-                                <h6 class="mb-0">Address</h6>
-                            </div>
-                            <div class="col-sm-9 text-secondary">
-                                Bay Area, San Francisco, CA
+
                             </div>
                         </div>
                         <hr />
@@ -189,7 +162,7 @@
                     <div class="col-sm-6 mb-3">
                         <div class="card h-100">
                             <div class="card-body">
-                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6><small>Web Design</small>
+                                <h6 class="d-flex align-items-center mb-3">Project</h6><small>Web Design</small>
                                 <div class="progress mb-3" style="height: 5px;">
                                     <div class="progress-bar bg-primary" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div><small>Website Markup</small>
@@ -211,19 +184,19 @@
                     <div class="col-sm-6 mb-3">
                         <div class="card h-100">
                             <div class="card-body">
-                                <h6 class="d-flex align-items-center mb-3"><i class="material-icons text-info mr-2">assignment</i>Project Status</h6><small>Web Design</small>
+                                <h6 class="d-flex align-items-center mb-3">Skills</h6><small>PHP</small>
                                 <div class="progress mb-3" style="height: 5px;">
                                     <div class="progress-bar bg-primary" role="progressbar" style="width: 80%;" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div><small>Website Markup</small>
+                                </div><small>Javasscript</small>
                                 <div class="progress mb-3" style="height: 5px;">
                                     <div class="progress-bar bg-primary" role="progressbar" style="width: 72%;" aria-valuenow="72" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div><small>One Page</small>
+                                </div><small>Html</small>
                                 <div class="progress mb-3" style="height: 5px;">
                                     <div class="progress-bar bg-primary" role="progressbar" style="width: 89%;" aria-valuenow="89" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div><small>Mobile Template</small>
+                                </div><small>Css</small>
                                 <div class="progress mb-3" style="height: 5px;">
                                     <div class="progress-bar bg-primary" role="progressbar" style="width: 55%;" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div>
-                                </div><small>Backend API</small>
+                                </div><small>Bootstrap</small>
                                 <div class="progress mb-3" style="height: 5px;">
                                     <div class="progress-bar bg-primary" role="progressbar" style="width: 66%;" aria-valuenow="66" aria-valuemin="0" aria-valuemax="100"></div>
                                 </div>

@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             <!-- Page Title -->
-            <h3>About Page</h3>
+            <h3>Contact Page</h3>
         </div>
         <hr>
         <div class="row">
@@ -14,7 +14,7 @@
                     <div class="row mb-5">
                         <div class="col-md-8 col-xl-6 text-center mx-auto">
                             <h2>Contact us</h2>
-                            <p class="w-lg-50">Curae hendrerit donec commodo hendrerit egestas tempus, turpis facilisis nostra nunc. Vestibulum dui eget ultrices.</p>
+                            <p class="w-lg-50"></p>
                         </div>
                     </div>
                     <div class="row d-flex justify-content-center">

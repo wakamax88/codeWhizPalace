@@ -43,4 +43,9 @@ class PageController
         $mail->send();
         echo $this->view->render('contact.php', ['subTitle' => 'Contact Page']);
     }
+    public function feature()
+    {
+
+        echo $this->view->render('feature.php', ['subtitle' => 'Feature Page']);
+    }
 }

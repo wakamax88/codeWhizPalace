@@ -49,7 +49,7 @@
             </div>
             <div class="col-lg-5 order-lg-1 py-3">
                 <h2 class="fw-normal h1 mb-2 text-light">Communauté</h2>
-                <p class="fw-light mb-4 ">Rejoignez une communauté dynamique de développeurs passionnés, prêts à échanger des idées, résoudre des problèmes et collaborer sur des projets innovants. L'inscription vous donne accès à un réseau d'experts prêts à partager leurs connaissances et à vous inspirer.</p> <a href="#" class="btn btn-primary fw-light pb-2 ps-3 pe-3 pt-2">Learn More</a>
+                <p class="fw-light mb-4 ">Rejoignez une communauté dynamique de développeurs passionnés, prêts à échanger des idées, résoudre des problèmes et collaborer sur des projets innovants. L'inscription vous donne accès à un réseau d'experts prêts à partager leurs connaissances et à vous inspirer.</p> <a href="/feature" class="btn btn-primary fw-light pb-2 ps-3 pe-3 pt-2">Learn More</a>
             </div>
         </div>
     </div>
@@ -60,7 +60,7 @@
             </div>
             <div class="col-lg-5 pb-3 pt-3">
                 <h2 class="fw-normal h1 mb-2 text-light">Les avantages</h2>
-                <p class="fw-light mb-4">En vous inscrivant, accédez à une bibliothèque de ressources exclusives, allant de tutoriels approfondis à des guides pratiques. Bénéficiez d'un accès privilégié à des outils, des astuces de codage et des informations de pointe pour stimuler votre croissance professionnelle.</p> <a href="#" class="btn btn-primary fw-light pb-2 ps-3 pe-3 pt-2">Learn More</a>
+                <p class="fw-light mb-4">En vous inscrivant, accédez à une bibliothèque de ressources exclusives, allant de tutoriels approfondis à des guides pratiques. Bénéficiez d'un accès privilégié à des outils, des astuces de codage et des informations de pointe pour stimuler votre croissance professionnelle.</p> <a href="/feature" class="btn btn-primary fw-light pb-2 ps-3 pe-3 pt-2">Learn More</a>
             </div>
         </div>
     </div>

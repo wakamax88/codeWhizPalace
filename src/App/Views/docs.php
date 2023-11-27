@@ -4,62 +4,39 @@
     <div class="container">
         <div class="row">
             <!-- Page Title -->
-            <h3>About Page</h3>
+            <h3>Docs Page</h3>
         </div>
         <hr>
         <div class="row">
-            <div class="accordion w-100" id="basicAccordion">
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingOne">
-                        <button class="accordion-button collapsed" type="button" data-mdb-toggle="collapse" data-mdb-target="#basicAccordionCollapseOne" aria-expanded="false" aria-controls="collapseOne">
-                            Question #1
-                        </button>
-                    </h2>
-                    <div id="basicAccordionCollapseOne" class="accordion-collapse collapse" aria-labelledby="headingOne" data-mdb-parent="#basicAccordion" style="">
-                        <div class="accordion-body">
-                            <strong>This is the first item's accordion body.</strong> It is shown by default,
-                            until the collapse plugin adds the appropriate classes that we use to style each
-                            element. These classes control the overall appearance, as well as the showing and
-                            hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-                            our default variables. It's also worth noting that just about any HTML can go within
-                            the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
-                    </div>
+            <div class="container">
+                <h1 class="mt-3">FAQ - Site Dédié aux Développeurs</h1>
+
+                <div class="question">
+                    <h3>Comment puis-je m'inscrire sur le site?</h3>
+                    <p class="answer">Pour vous inscrire, cliquez sur le bouton "Inscription" en haut à droite de la page d'accueil. Remplissez le formulaire avec vos informations, puis validez votre adresse e-mail.</p>
                 </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingTwo">
-                        <button class="accordion-button collapsed" type="button" data-mdb-toggle="collapse" data-mdb-target="#basicAccordionCollapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                            Question #2
-                        </button>
-                    </h2>
-                    <div id="basicAccordionCollapseTwo" class="accordion-collapse collapse" aria-labelledby="headingTwo" data-mdb-parent="#basicAccordion" style="">
-                        <div class="accordion-body">
-                            <strong>This is the second item's accordion body.</strong> It is hidden by default,
-                            until the collapse plugin adds the appropriate classes that we use to style each
-                            element. These classes control the overall appearance, as well as the showing and
-                            hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-                            our default variables. It's also worth noting that just about any HTML can go within
-                            the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
-                    </div>
+
+                <div class="question">
+                    <h3>Comment personnaliser mon profil?</h3>
+                    <p class="answer">Une fois connecté, accédez à la section "Profil" et cliquez sur "Modifier Profil". Vous pourrez ajouter des compétences, des projets antérieurs et d'autres détails pertinents.</p>
                 </div>
-                <div class="accordion-item">
-                    <h2 class="accordion-header" id="headingThree">
-                        <button class="accordion-button collapsed" type="button" data-mdb-toggle="collapse" data-mdb-target="#basicAccordionCollapseThree" aria-expanded="false" aria-controls="collapseThree">
-                            Question #3
-                        </button>
-                    </h2>
-                    <div id="basicAccordionCollapseThree" class="accordion-collapse collapse" aria-labelledby="headingThree" data-mdb-parent="#basicAccordion" style="">
-                        <div class="accordion-body">
-                            <strong>This is the third item's accordion body.</strong> It is hidden by default,
-                            until the collapse plugin adds the appropriate classes that we use to style each
-                            element. These classes control the overall appearance, as well as the showing and
-                            hiding via CSS transitions. You can modify any of this with custom CSS or overriding
-                            our default variables. It's also worth noting that just about any HTML can go within
-                            the <code>.accordion-body</code>, though the transition does limit overflow.
-                        </div>
-                    </div>
+
+                <div class="question">
+                    <h3>Comment puis-je participer à des projets collaboratifs?</h3>
+                    <p class="answer">Naviguez jusqu'à la section "Projets" et explorez les projets en cours. Vous pouvez rejoindre un projet existant ou créer le vôtre. Invitez d'autres développeurs à collaborer avec vous.</p>
                 </div>
+
+                <div class="question">
+                    <h3>Comment fonctionnent les espaces de codage en ligne?</h3>
+                    <p class="answer">Les espaces de codage en ligne sont accessibles depuis la section "Collaboration". Créez un nouvel espace, invitez des collaborateurs et commencez à coder en temps réel à l'aide de nos outils intégrés.</p>
+                </div>
+
+                <div class="question">
+                    <h3>Comment rester informé des dernières actualités?</h3>
+                    <p class="answer">Consultez régulièrement la section "Actualités" sur la page d'accueil. Vous y trouverez les dernières tendances, événements et articles pertinents pour la communauté des développeurs.</p>
+                </div>
+
+                <!-- Ajoutez d'autres questions et réponses au besoin -->
             </div>
         </div>
     </div>

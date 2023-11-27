@@ -20,7 +20,10 @@ class ProfileController
     public function create()
     {
         $this->validatorService->validateProfile($_POST);
-        $this->profileService->create($_POST);
+        $profile = $this->profileService->read();
+        if ($profile == null) {
+            $this->profileService->create($_POST);
+        }
         redirectTo('/app/profile');
     }
 

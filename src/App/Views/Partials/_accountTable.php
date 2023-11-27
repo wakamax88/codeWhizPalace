@@ -1,5 +1,4 @@
 <?php foreach ($contents as $key => $row) { ?>
-
     <tr id="account_<?= e($row['id'] ?? '') ?>">
         <td><?= e($row['id'] ?? '') ?></td>
         <td><img class="rounded-circle me-2" width="30" height="30" src="/assets/img/profile/<?= e($row['profileImage'] ?? 'avatar.jpg') ?>" /></td>
